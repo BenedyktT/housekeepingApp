@@ -10,20 +10,15 @@
   "author": "Benedykt Tyminski",
   "license": "ISC",
   "dependencies": {
+    "atob": "^2.1.2",
     "axios": "^0.19.0",
     "bcryptjs": "^2.4.3",
     "config": "^3.2.4",
-    "crypto": "^1.0.1",
     "express": "^4.17.1",
     "express-validator": "^6.2.0",
-    "gravatar": "^1.8.0",
-    "jsonwebtoken": "^8.5.1",
-    "mongoose": "^5.7.12",
-    "node-fetch": "^2.6.0",
     "otplib": "^11.0.1",
     "request": "^2.88.0",
-    "speakeasy": "^2.0.0",
-    "timesync": "^1.0.4"
+    "xml-js": "^1.6.11"
   },
   "devDependencies": {
     "concurrently": "^5.0.0",
