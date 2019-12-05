@@ -1,7 +1,7 @@
 import React from "react";
+import "./styles/index.scss";
+import Navbar from "./components/layout/Navbar";
 
-const App = () => {
-	return <div>hi</div>;
-};
+const App = () => <Navbar />;
 
 export default App;
