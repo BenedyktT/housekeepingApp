@@ -1,0 +1,28 @@
+
+
+*{box-sizing: border-box}
+$theme-color: rgb(209, 154, 45);
+$cta-fontsize: 1.5rem;
+$padding: 1rem;
+$bg-color: rgb(44, 42, 42);
+
+
+$break-narrow: 400px;
+$break-small: 792px;
+$break-large: 1024px;
+
+
+@mixin respond-to($media) {
+  @if $media == narrow {
+    @media only screen and (max-width: $break-narrow) { @content;}
+  }
+  @if $media == handhelds {
+    @media only screen and (max-width: $break-small) { @content; }
+  }
+  @else if $media == medium-screens {
+    @media only screen and (min-width: $break-small + 1) and (max-width: $break-large - 1) { @content; }
+  }
+  @else if $media == wide-screens {
+    @media only screen and (min-width: $break-large) { @content; }
+  }
+}

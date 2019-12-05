@@ -4,8 +4,9 @@
   "description": "Housekeeping app",
   "main": "server.js",
   "scripts": {
-    "start": "node server",
-    "server": "nodemon server"
+    "client": "npm start --prefix client",
+    "server": "nodemon server --ignore './client/'",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "author": "Benedykt Tyminski",
   "license": "ISC",
@@ -18,7 +19,9 @@
     "express-validator": "^6.2.0",
     "otplib": "^11.0.1",
     "request": "^2.88.0",
-    "xml-js": "^1.6.11"
+    "xml-js": "^1.6.11",
+    "xml2js": "^0.4.22",
+    "xmldoc": "^1.1.2"
   },
   "devDependencies": {
     "concurrently": "^5.0.0",
