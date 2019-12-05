@@ -1,15 +1,43 @@
 //colors
-$pink-a:#EF427C;
-$pink-b:#B41C8B;
-$blue-a:#1ECBF4;
-$blue-b:#194DC3;
-$blue-primary:#1592E6;
-$occupied:#6200EE;
+$pink-a: #ef427c;
+$pink-b: #b41c8b;
+$blue-a: #1ecbf4;
+$blue-b: #194dc3;
+$blue-primary: #1592e6;
+$occupied: #6200ee;
+$text-white: #e2dada;
 
-$gradient-primary: linear-gradient($pink-a,$pink-b);
+$gradient-primary: linear-gradient($pink-a, $pink-b);
 
 //paddings
 $padding-primary: 1.2rem;
 $padding-big: 2rem;
 $padding-x: 0 1.2rem;
 $padding-y: 1.2rem 0;
+
+//margin
+
+$margin-primary: 1.2rem;
+$margin-big: 2rem;
+$margin-x: 0 1.2rem;
+$margin-y: 1.2rem 0;
+
+//fonts
+@import url("https://fonts.googleapis.com/css?family=Montserrat:500|Roboto&display=swap");
+
+$font-head: "Montserrat", Arial, Helvetica, sans-serif;
+$font-sub: "Roboto", Arial, Helvetica, cursive, sans-serif;
+
+//constans
+.ml-2 {
+  margin-left: 2rem;
+}
+.ml-1 {
+  margin-left: 1rem;
+}
+.mr-1 {
+  margin-right: 1rem;
+}
+.mr-2 {
+  margin-right: 2rem;
+}
