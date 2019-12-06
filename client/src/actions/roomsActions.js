@@ -1,5 +1,6 @@
 import { GET_OCCUPANCY, GET_STATUS } from "./types";
 import axios from "axios";
+import moment from "moment";
 
 export const getRooms = () => async dispatch => {
   try {
@@ -15,7 +16,8 @@ export const getRooms = () => async dispatch => {
 };
 
 export const getOccupancy = () => async dispatch => {
-  const rooms = await axios.get("/reservation");
+  const today = moment().format("YYYY-MM-DD");
+  const rooms = await axios.get(`/reservation/${today}`);
   try {
     dispatch({
       type: GET_OCCUPANCY,

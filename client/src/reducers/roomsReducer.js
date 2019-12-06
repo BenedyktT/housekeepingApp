@@ -6,15 +6,17 @@ export default (state = initialState, action) => {
   const { type, payload } = action;
   switch (type) {
     case GET_STATUS:
-      if (state.length) {
-        const test = state.map(room => {
-          room.filter(e => e.roomName === payload.Room);
-        });
-      }
-
-      return state;
+      return { ...state, roomstatus: [...payload] };
     case GET_OCCUPANCY:
-      return { ...state, ...payload };
+      /*      const result = state.roomstatus.map(roomStatus =>
+        Object.assign(
+          {},
+          roomStatus,
+          payload.find(cleanRoom => cleanRoom.room === roomStatus.room) || {}
+        )
+      ); */
+      console.log(payload);
+      return { ...state };
     default:
       return state;
   }
