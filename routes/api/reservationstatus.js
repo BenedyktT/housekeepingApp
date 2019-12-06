@@ -13,11 +13,12 @@ otplib.totp.options = {
   algorithm: "sha256",
   encoding: "hex"
 };
-router.get("/", async (req, res, next) => {
+router.get("/:date", async (req, res, next) => {
   try {
     const token = otplib.totp.generate(atob(secret));
+    console.log(req.params.date);
     const response = await axios.get(
-      "roomer/openAPI/REST/inventories/rooms?statusDate=2019-12-05 ",
+      `roomer/openAPI/REST/inventories/rooms?statusDate=${req.params.date}`,
       {
         headers: {
           "Promoir-Roomer-Hotel-Secret": token
