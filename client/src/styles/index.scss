@@ -440,8 +440,8 @@ textarea {
   padding: 0.2em 0;
 }
 
-$break-narrow: 400px;
-$break-small: 792px;
+$break-narrow: 362px;
+$break-small: 500px;
 $break-large: 1024px;
 
 @mixin respond-to($media) {
