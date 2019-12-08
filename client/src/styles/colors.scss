@@ -12,15 +12,21 @@ $gradient-primary: linear-gradient($pink-a, $pink-b);
 //paddings
 $padding-primary: 1.2rem;
 $padding-big: 2rem;
+$padding-small: 0.5rem;
 $padding-x: 0 1.2rem;
+$padding-small-x: 0 0.5rem;
 $padding-y: 1.2rem 0;
+$padding-small-y: 0.5rem 0;
 
 //margin
 
 $margin-primary: 1.2rem;
 $margin-big: 2rem;
+$margin-small: 0.3rem;
 $margin-x: 0 1.2rem;
+$margin-small-x: 0 0.3rem;
 $margin-y: 1.2rem 0;
+$margin-small-y: 0.3 0;
 
 //fonts
 @import url("https://fonts.googleapis.com/css?family=Montserrat:500|Roboto&display=swap");
