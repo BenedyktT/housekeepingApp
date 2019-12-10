@@ -7,29 +7,30 @@ const Rooms = ({ rooms, loadRooms }) => {
     loadRooms();
   }, []);
   const render = () => {
-    return rooms.map(
-      ({
-        Room: number,
-        Status: status,
-        roomState: currentState,
-        nextRooms: nextState
-      }) => {
-        return (
-          <div key={number} className="room">
-            <div className="room__col--left">
-              <h4 className="bold">Room {number}</h4>
-            </div>
-            <span className="hor-line"></span>
-            <div className="room__col--right">
-              <p className="occupancy small">vacant</p>
-              <p className="reservation">{currentState}</p>
-              <p className="clean small">{status}</p>
-              <p className="note small"></p>
-            </div>
+    return rooms.map(({ number, cleanStatus, vacancy, roomStatus }) => {
+      return (
+        <div key={number} className="room">
+          <div className="room__col--left">
+            <h4 className="bold">Room {number}</h4>
           </div>
-        );
-      }
-    );
+          <span className="hor-line"></span>
+          <div className="room__col--right">
+            <p className="occupancy small">{vacancy}</p>
+            <p className="reservation">{roomStatus}</p>
+            <p
+              className={
+                cleanStatus === "Clean"
+                  ? "success clean small"
+                  : "danger clean small"
+              }
+            >
+              {cleanStatus}
+            </p>
+            <p className="note small"></p>
+          </div>
+        </div>
+      );
+    });
   };
   return (
     <div className="container">{rooms.length ? render() : "...Loading"}</div>
@@ -39,7 +40,7 @@ const Rooms = ({ rooms, loadRooms }) => {
 
 export default connect(
   state => ({
-    rooms: state.roomReducer.roomSetup
+    rooms: state.roomReducer.roomsReport
   }),
   { loadRooms }
 )(Rooms);
