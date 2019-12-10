@@ -1,7 +1,7 @@
-import { GET_OCCUPANCY, GET_STATUS, GET_ROOM_SETUP } from "../actions/types";
+import { GET_ROOM_SETUP } from "../actions/types";
 
 const initialState = {
-  roomSetup: []
+  roomsReport: []
 };
 
 export default (state = initialState, action) => {
@@ -38,47 +38,88 @@ export default (state = initialState, action) => {
       const avail = "AVAILABLE";
       const arr = "ARRIVED";
       const block = "BLOCKED";
-
-      const test = roomSetup.map(
-        ({ Room, Status, roomState: c, nextRooms: n }) => {
+      const narr = "NOT_ARRIVED";
+      console.log(roomSetup);
+      const roomsReport = roomSetup.map(
+        ({ Room: number, Status: cleanStatus, roomState: c, nextRooms: n }) => {
           let vacancy;
           let roomStatus;
 
-          if (Status === "C") {
-            Status = "Clean";
+          if (cleanStatus === "C") {
+            cleanStatus = "Clean";
           }
-          if (Status === "U") {
-            Status = "Not Clean";
+          if (cleanStatus === "U") {
+            cleanStatus = "Not Clean";
           }
-          if (c === co || n === co) {
-            c = "Checked Out";
+          if (
+            (c === narr && n === narr) ||
+            (c === narr && n === avail) ||
+            (c === narr && n === na) ||
+            (c === avail && n === avail) ||
+            (c === avail && n === co) ||
+            (c === avail && n === na) ||
+            (c === block && n === avail) ||
+            (c === block && n === na) ||
+            (c === na && (n === avail || n === co || n === block || n === na))
+          ) {
+            vacancy = cleanStatus;
+            roomStatus = cleanStatus;
+          }
+          if (
+            (c === narr && n === arr) ||
+            (c === avail && n === (narr || arr)) ||
+            ((c === block || c === arr || c === na || c === avail) && n === arr)
+          ) {
+            vacancy = "Occupied";
+            roomStatus = "Arriving";
+          }
+          if ((c === block || c === na) && n === narr) {
+            vacancy = "Vacant";
+            roomStatus = "Arriving";
+          }
+          if (c === co && n === narr) {
+            vacancy = "Vacant";
+            roomStatus = "Departure+Arriving";
+          }
+          if (c === arr && (n === narr || n === arr)) {
+            vacancy = "Stayover";
+            roomStatus = "Occupied";
+          }
+          if (c === co && n === arr) {
+            vacancy = "Vacant";
+            roomStatus = "Departure+Arriving";
+          }
+          if (
+            (c === co || c === block || c === narr) &&
+            (n === avail || n === co || n === na)
+          ) {
             vacancy = "Vacant";
             roomStatus = "Departure";
           }
-          if (c == arr && n === arr) {
-            vacancy = "Stayover";
-            roomStatus = "Stayover";
+          if (c === arr && (n === block || n === na || n === avail)) {
+            vacancy = "Occupied";
+            roomStatus = "Departure";
           }
-          if (c === arr || n === arr) vacancy = "Occupied";
-          if (c === avail && n === avail) {
+
+          if ((c === narr || c === avail || c === block) && n === block) {
+            vacancy = "Out of Order";
+            roomStatus = "Out of Order";
+          }
+          if (c === co && n === block) {
             vacancy = "Vacant";
-            roomStatus = "Available";
+            roomStatus = "Departure";
           }
-          if (c === na && n === na) {
-            vacancy = "Vacant";
-          }
-          if (c === na && n === arr)
+          if (c)
             return {
-              Room,
-              Status,
+              number,
+              cleanStatus,
               vacancy,
               roomStatus
             };
         }
       );
-      console.log(test);
 
-      return { ...state, roomSetup };
+      return { ...state, roomsReport };
 
     default:
       return state;
