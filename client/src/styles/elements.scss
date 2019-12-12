@@ -1,26 +1,3 @@
-//navbar
-.nav {
-  background: $gradient-primary;
-  padding: $padding-primary;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-//avatar
-.avatar {
-  display: flex;
-  align-items: center;
-}
-.avatar__image {
-  border-radius: 50%;
-  height: 50px;
-  width: 50px;
-  object-fit: cover;
-  display: block;
-  overflow: hidden;
-}
-
 //hamburger
 
 .hamburger {
@@ -31,7 +8,6 @@
   flex-direction: column;
   justify-content: space-between;
   border-bottom: 3px solid $blue-primary;
-  border-radius: 2px;
   position: relative;
 }
 .hamburger__line {
@@ -54,6 +30,24 @@
 }
 .hamburger__checkbox {
   visibility: hidden;
+}
+.hamburger:active,.hamburger:focus{
+  transform: rotate(180deg)
+}
+
+// Hamburger modal
+.hamburger--small{
+  width: 15px;
+  height: 10px;
+  border-bottom: 3px solid $dark;
+  &:before{
+    height: 3px;
+    background: $dark
+  };
+  &:after{
+    height: 3px;
+    background: $dark;
+  }
 }
 
 //button styles
@@ -137,64 +131,23 @@ h4 {
 //container
 .container {
   padding: $padding-primary;
-  margin: $margin-primary;
+ 
   @include respond-to(handhelds) {
     padding: $padding-small;
-    margin: $margin-small;
+    margin: $margin-small;  
+    width:auto
   }
+  width:50%;
+  margin:auto
+
+}
+.rounded{
+  border-radius: 15px;
+};
+.shadow{
+  box-shadow: 1px 1px 4px 1px $dark;
 }
 
-.room {
-  background: $gradient-primary;
-  margin: $margin-y;
-  border-radius: 10px;
-  padding: 0.2rem 1.4rem;
-  color: white;
-  display: grid;
-  grid-template-columns: 47% 1fr 47%;
-  justify-content: center;
-  align-items: center;
-}
-.room__col--right {
-  display: grid;
-  grid-template-columns: repeat(4, 25%);
-  grid-template-rows: repeat(3, 25%) 20%;
-  justify-items: center;
-  align-items: center;
-  grid-template-areas:
-    ". . o o "
-    "r r r r"
-    "c c c c"
-    "n n n n";
-}
-.occupancy {
-  grid-area: o;
-  background: $blue-primary;
-  border-radius: 20px;
-  width: 100%;
-  text-align: center;
-  padding: 0.1rem 0;
-  align-self: center;
-}
-.reservation {
-  grid-area: r;
-  padding: $padding-small;
-  margin-top: 1rem;
-  @include respond-to(handhelds) {
-    font-size: 0.8rem;
-  }
-  @include respond-to(narrow) {
-    padding: 0;
-    margin-top: 0.5rem;
-  }
-}
-.clean {
-  grid-area: c;
-}
-
-.note {
-  grid-area: n;
-}
 
 .hor-line {
   height: 75px;

@@ -4,11 +4,13 @@ import Navbar from "./components/layout/Navbar";
 import { Provider } from "react-redux";
 import store from "./store";
 import Rooms from "./components/rooms/Rooms";
+import FiltersBar from "./components/rooms/FiltersBar";
 
 const App = () => (
-  <Provider store={store}>
-    <Navbar />
-    <Rooms />
-  </Provider>
+	<Provider store={store}>
+		<Navbar />
+		<FiltersBar />
+		<Rooms />
+	</Provider>
 );
 export default App;
