@@ -34,7 +34,10 @@ const FiltersBar = ({ showAll, showUnclean, selectHallway }) => {
         >
           <option value="all">All</option>
           <option value="100">100</option>
-          <option value="200">200</option>
+          <option value="200">200 ground</option>
+          <option value="213">200 upper</option>
+          <option value="300">300 ground</option>
+          <option value="313">300 upper</option>
         </select>
       </div>
     </div>
