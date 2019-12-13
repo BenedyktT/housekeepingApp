@@ -31,20 +31,21 @@
 .hamburger__checkbox {
   visibility: hidden;
 }
-.hamburger:active,.hamburger:focus{
-  transform: rotate(180deg)
+.hamburger:active,
+.hamburger:focus {
+  transform: rotate(180deg);
 }
 
 // Hamburger modal
-.hamburger--small{
+.hamburger--small {
   width: 15px;
   height: 10px;
   border-bottom: 3px solid $dark;
-  &:before{
+  &:before {
     height: 3px;
-    background: $dark
-  };
-  &:after{
+    background: $dark;
+  }
+  &:after {
     height: 3px;
     background: $dark;
   }
@@ -103,7 +104,6 @@ h3 {
 h4 {
   font-size: 1.3rem;
 }
-
 .text-white {
   color: $text-white;
 }
@@ -131,23 +131,21 @@ h4 {
 //container
 .container {
   padding: $padding-primary;
- 
+
   @include respond-to(handhelds) {
     padding: $padding-small;
-    margin: $margin-small;  
-    width:auto
+    margin: $margin-small;
+    width: auto;
   }
-  width:50%;
-  margin:auto
-
+  width: 50%;
+  margin: auto;
 }
-.rounded{
+.rounded {
   border-radius: 15px;
-};
-.shadow{
+}
+.shadow {
   box-shadow: 1px 1px 4px 1px $dark;
 }
-
 
 .hor-line {
   height: 75px;
@@ -173,4 +171,16 @@ h4 {
     top: 33%;
     right: 0px;
   }
+}
+
+//sort down arrow
+.down-arrow {
+  color: darken($dark, 30%);
+  width: 15px;
+  height: 15px;
+  transition: transform 360ms ease-in-out;
+}
+.down-arrow:hover,
+.down-arrow:focus .down-arrow > path {
+  transform: rotate(-180deg) translate(0, -35%);
 }
