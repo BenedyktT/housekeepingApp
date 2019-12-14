@@ -1,20 +1,38 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import moment from "moment";
 import { connect } from "react-redux";
 import {
   showUnclean,
   showAll,
-  selectHallway
+  selectHallway,
+  getCurrentCalendarValue
 } from "../../actions/filterAction";
+import { loadRooms } from "../../actions/roomsActions";
 import Calendar from "react-calendar";
 
-const FiltersBar = ({ showAll, showUnclean, selectHallway }) => {
+const FiltersBar = ({
+  showAll,
+  showUnclean,
+  selectHallway,
+  getCurrentCalendarValue,
+  loadRooms
+}) => {
   const [isCalendarVisible, toggleCalendarVisible] = useState(false);
   const [calendarValue, setCalendarValue] = useState(new Date());
-
+  const didMount = useRef(false);
   useEffect(() => {
-    const date = moment(calendarValue).format("YYYY-DD-MM");
-    console.log(date);
+    const dates = {
+      c: moment(calendarValue)
+        .subtract("1", "days")
+        .format("YYYY-MM-DD"),
+      n: moment(calendarValue).format("YYYY-MM-DD")
+    };
+    getCurrentCalendarValue(dates);
+    if (didMount.current) {
+      loadRooms(dates);
+    } else {
+      didMount.current = true;
+    }
   }, [calendarValue]);
 
   return (
@@ -47,14 +65,35 @@ const FiltersBar = ({ showAll, showUnclean, selectHallway }) => {
           <option value="313">300 upper</option>
         </select>
         <div className="to-right mr-1 sm-text-1">
-          <i className="cal-controls sm-text-05 fas fa-chevron-left"></i>
+          <button
+            onClick={() => {
+              setCalendarValue(
+                moment(calendarValue)
+                  .subtract(1, "days")
+                  .toDate()
+              );
+            }}
+          >
+            <i className="cal-controls sm-text-05 fas fa-chevron-left"></i>
+          </button>
+
           <button
             onClick={() => toggleCalendarVisible(!isCalendarVisible)}
             className="margin-small-x"
           >
-            15 Dec
+            {moment(calendarValue).format("DD MMM")}
           </button>
-          <i className="cal-controls sm-text-05 fas fa-chevron-right"></i>
+          <button
+            onClick={() => {
+              setCalendarValue(
+                moment(calendarValue)
+                  .add(1, "days")
+                  .toDate()
+              );
+            }}
+          >
+            <i className="cal-controls sm-text-05 fas fa-chevron-right"></i>
+          </button>
         </div>
       </div>
       {isCalendarVisible && (
@@ -66,9 +105,13 @@ const FiltersBar = ({ showAll, showUnclean, selectHallway }) => {
   );
 };
 
-export default connect(null, { showAll, showUnclean, selectHallway })(
-  FiltersBar
-);
+export default connect(null, {
+  showAll,
+  showUnclean,
+  selectHallway,
+  getCurrentCalendarValue,
+  loadRooms
+})(FiltersBar);
 
 /* 
   <button
