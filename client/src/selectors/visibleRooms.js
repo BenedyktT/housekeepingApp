@@ -1,5 +1,4 @@
 export default (rooms, { filterCleanRoomsMethod, setVisibleHallway }) => {
-  console.log(setVisibleHallway);
   return rooms
     .filter(({ cleanStatus }) => {
       if (filterCleanRoomsMethod === "SHOW_UNCLEAN") {
@@ -8,6 +7,7 @@ export default (rooms, { filterCleanRoomsMethod, setVisibleHallway }) => {
       if (filterCleanRoomsMethod === "SHOW_ALL") {
         return true;
       }
+      return true;
     })
     .filter(({ number }) => {
       const num = parseInt(number);

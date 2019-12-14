@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { ReactComponent as SortDown } from "../../img/sort-down-solid.svg";
+import React from "react";
+/* import { ReactComponent as SortDown } from "../../img/sort-down-solid.svg"; */
 import { connect } from "react-redux";
 import {
   showUnclean,
@@ -8,8 +8,6 @@ import {
 } from "../../actions/filterAction";
 
 const FiltersBar = ({ showAll, showUnclean, selectHallway }) => {
-  const [isHamburgerActive, toggleHamburgerActive] = useState(false);
-
   return (
     <div className="container ">
       <div className=" rounded shadow filter-bar">
