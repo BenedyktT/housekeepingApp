@@ -1,90 +1,99 @@
 .nav {
-    background: $gradient-primary;
-    padding: $padding-primary;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-  
-
+  background: $gradient-primary;
+  padding: $padding-primary;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
 
 //avatar
 .avatar {
-    display: flex;
-    align-items: center;
-  }
+  display: flex;
+  align-items: center;
+}
 .avatar__image {
-    border-radius: 50%;
-    height: 50px;
-    width: 50px;
-    object-fit: cover;
-    display: block;
-    overflow: hidden;
+  border-radius: 50%;
+  height: 50px;
+  width: 50px;
+  object-fit: cover;
+  display: block;
+  overflow: hidden;
+}
+
+//filter component
+//////////////////////////////////////////////////////////////
+
+.filter-bar {
+  padding: $padding-xsmall;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+//calendar
+.cal-controls {
+  transition: transform 350ms ease-in-out;
+}
+.cal-controls:hover,
+.cal-controls:focus {
+  transform: scale(1.2);
+}
+.react-calendar {
+  position: absolute;
+  z-index: 2;
+  right: 25%;
+  @include respond-to(handhelds) {
+    right: inherit;
   }
-
-
-
-  //filter component
-
- .filter-bar{
-     padding:$padding-xsmall
- }
-
-
-
-
-
-
+}
 //room component
-  .room {
-    background: $gradient-primary;
-    margin: $margin-y;
-    border-radius: 10px;
-    padding: 0.2rem 1.4rem;
-    color: white;
-    display: grid;
-    grid-template-columns: 47% 1fr 47%;
-    justify-content: center;
-    align-items: center;
+.room {
+  background: $gradient-primary;
+  margin: $margin-y;
+  border-radius: 10px;
+  padding: 0.2rem 1.4rem;
+  color: white;
+  display: grid;
+  grid-template-columns: 47% 1fr 47%;
+  justify-content: center;
+  align-items: center;
+}
+.room__col--right {
+  display: grid;
+  grid-template-columns: repeat(4, 25%);
+  grid-template-rows: repeat(3, 25%) 20%;
+  justify-items: center;
+  align-items: center;
+  grid-template-areas:
+    ". . o o "
+    "r r r r"
+    "c c c c"
+    "n n n n";
+}
+.occupancy {
+  grid-area: o;
+  background: $blue-primary;
+  border-radius: 20px;
+  width: 100%;
+  text-align: center;
+  padding: 0.1rem 0;
+  align-self: center;
+}
+.reservation {
+  grid-area: r;
+  padding: $padding-small;
+  margin-top: 1rem;
+  @include respond-to(handhelds) {
+    font-size: 0.8rem;
   }
-  .room__col--right {
-    display: grid;
-    grid-template-columns: repeat(4, 25%);
-    grid-template-rows: repeat(3, 25%) 20%;
-    justify-items: center;
-    align-items: center;
-    grid-template-areas:
-      ". . o o "
-      "r r r r"
-      "c c c c"
-      "n n n n";
+  @include respond-to(narrow) {
+    padding: 0;
+    margin-top: 0.5rem;
   }
-  .occupancy {
-    grid-area: o;
-    background: $blue-primary;
-    border-radius: 20px;
-    width: 100%;
-    text-align: center;
-    padding: 0.1rem 0;
-    align-self: center;
-  }
-  .reservation {
-    grid-area: r;
-    padding: $padding-small;
-    margin-top: 1rem;
-    @include respond-to(handhelds) {
-      font-size: 0.8rem;
-    }
-    @include respond-to(narrow) {
-      padding: 0;
-      margin-top: 0.5rem;
-    }
-  }
-  .clean {
-    grid-area: c;
-  }
-  
-  .note {
-    grid-area: n;
-  }
-  
+}
+.clean {
+  grid-area: c;
+}
+
+.note {
+  grid-area: n;
+}

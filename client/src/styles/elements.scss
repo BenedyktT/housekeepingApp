@@ -112,6 +112,11 @@ h4 {
     font-size: 0.8rem;
   }
 }
+.sm-text-05 {
+  @include respond-to(handhelds) {
+    font-size: 0.5rem;
+  }
+}
 //text bold
 .bold {
   font-weight: bolder !important;
