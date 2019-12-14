@@ -10,24 +10,23 @@ const getRooms = (async () => {
     console.error(error.response.data.msg);
   }
 })();
-
-const getOccupancy = (async () => {
-  const yesterday = moment()
-    .subtract(1, "days")
-    .format("YYYY-MM-DD");
-  const today = moment().format("YYYY-MM-DD");
+const yesterday = moment()
+  .subtract(1, "days")
+  .format("YYYY-MM-DD");
+const today = moment().format("YYYY-MM-DD");
+const getOccupancy = async ({ c = yesterday, n = today }) => {
   try {
-    const currentRooms = await axios.get(`/reservation/${yesterday}`);
-    const nextRooms = await axios.get(`/reservation/${today}`);
+    const currentRooms = await axios.get(`/reservation/${c}`);
+    const nextRooms = await axios.get(`/reservation/${n}`);
     return { currentRooms: currentRooms.data, nextRooms: nextRooms.data };
   } catch (error) {
     console.error(error.response.data.msg);
   }
-})();
+};
 
-export const loadRooms = () => async dispatch => {
+export const loadRooms = date => async dispatch => {
   const cleanStatus = await getRooms;
-  const roomStatus = await getOccupancy;
+  const roomStatus = await getOccupancy(date);
 
   dispatch({
     type: GET_ROOM_SETUP,

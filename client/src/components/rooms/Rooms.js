@@ -3,12 +3,15 @@ import { connect } from "react-redux";
 import { loadRooms } from "../../actions/roomsActions";
 import visibleRooms from "../../selectors/visibleRooms";
 
-const Rooms = ({ rooms, loadRooms }) => {
-  const initLoadRooms = useCallback(() => {
-    loadRooms();
-  }, [loadRooms]);
+const Rooms = ({ rooms, loadRooms, setReportDate }) => {
+  const initLoadRooms = useCallback(
+    report => {
+      loadRooms(report);
+    },
+    [loadRooms]
+  );
   useEffect(() => {
-    initLoadRooms();
+    initLoadRooms(setReportDate);
   }, [initLoadRooms]);
   const render = () => {
     return rooms.map(({ number, cleanStatus, vacancy, roomStatus }) => {
@@ -44,7 +47,8 @@ const Rooms = ({ rooms, loadRooms }) => {
 
 export default connect(
   state => ({
-    rooms: visibleRooms(state.roomReducer.roomsReport, state.filterReducer)
+    rooms: visibleRooms(state.roomReducer.roomsReport, state.filterReducer),
+    setReportDate: state.filterReducer.getCurrentCalendarValue
   }),
   { loadRooms }
 )(Rooms);
