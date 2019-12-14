@@ -1,12 +1,15 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useCallback } from "react";
 import { connect } from "react-redux";
 import { loadRooms } from "../../actions/roomsActions";
 import visibleRooms from "../../selectors/visibleRooms";
 
 const Rooms = ({ rooms, loadRooms }) => {
-  useEffect(() => {
+  const initLoadRooms = useCallback(() => {
     loadRooms();
-  });
+  }, [loadRooms]);
+  useEffect(() => {
+    initLoadRooms();
+  }, [initLoadRooms]);
   const render = () => {
     return rooms.map(({ number, cleanStatus, vacancy, roomStatus }) => {
       return (
