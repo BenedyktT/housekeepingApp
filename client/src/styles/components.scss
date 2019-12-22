@@ -1,5 +1,5 @@
 .nav {
-  background: $gradient-primary;
+  background: $gradient-blue;
   padding: $padding-primary;
   display: flex;
   align-items: center;
@@ -47,7 +47,7 @@
 }
 //room component
 .room {
-  background: $gradient-primary;
+ 
   margin: $margin-y;
   border-radius: 10px;
   padding: 0.2rem 1.4rem;
