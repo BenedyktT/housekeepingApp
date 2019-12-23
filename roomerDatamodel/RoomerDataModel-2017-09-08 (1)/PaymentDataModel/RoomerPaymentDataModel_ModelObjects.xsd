@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema targetNamespace="http://roomer.promoir.nl/datamodel/payment/modelobjects/2014/01/"
+	elementFormDefault="qualified" xmlns="http://www.w3.org/2001/XMLSchema"
+	xmlns:rmrpmo="http://roomer.promoir.nl/datamodel/payment/modelobjects/2014/01/"
+	xmlns:rmrbmo="http://roomer.promoir.nl/datamodel/booking/modelobjects/2014/01/"
+	xmlns:rmrpbt="http://roomer.promoir.nl/datamodel/payment/basetypes/2014/01/" xmlns:rmrbt="http://roomer.promoir.nl/datamodel/canonical/basetypes/2014/01/">
+
+	<import schemaLocation="RoomerPaymentDataModel_BaseTypes.xsd"
+		namespace="http://roomer.promoir.nl/datamodel/payment/basetypes/2014/01/">
+	</import>
+	<import schemaLocation="../CanonicalDataModel/RoomerCanonicalDataModel_BaseTypes.xsd" namespace="http://roomer.promoir.nl/datamodel/canonical/basetypes/2014/01/"></import>
+	<element name="PaymentRequest">
+		<complexType>
+			<complexContent>
+				<extension base="rmrpbt:PaymentRequestType">
+					<attribute name="hotelId" type="string" use="required" />
+				</extension>
+			</complexContent>
+		</complexType>
+	</element>
+	<element name="PaymentReceipt" type="rmrpbt:PaymentReceiptType" />
+
+	<element name="PaymentRequirement" type="rmrbt:PaymentRequirementType"/>
+
+</schema>

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema targetNamespace="http://roomer.promoir.nl/datamodel/housing/modelobjects/2014/01/" elementFormDefault="qualified"
+	xmlns="http://www.w3.org/2001/XMLSchema"
+	xmlns:rmrhmo="http://roomer.promoir.nl/datamodel/housing/modelobjects/2014/01/"
+	xmlns:rmrbt="http://roomer.promoir.nl/datamodel/canonical/basetypes/2014/01/"
+	xmlns:rmrds="http://roomer.promoir.nl/datamodel/canonical/datastructures/2014/01/"
+	xmlns:rmrfmo="http://roomer.promoir.nl/datamodel/financial/modelobjects/2014/01/">
+	<annotation>
+		<documentation>
+			This XSD specifies the data model elements used in the housing model. The housing model is a model that
+			is
+			specialized to the task of managing room assignments for existing bookings.		
+		</documentation>
+	</annotation>
+	
+	<import 
+		schemaLocation="../CanonicalDataModel/RoomerCanonicalDataModel_BaseTypes.xsd" 
+		namespace="http://roomer.promoir.nl/datamodel/canonical/basetypes/2014/01/" />
+	<import 
+		schemaLocation="../CanonicalDataModel/RoomerCanonicalDataModel_DataStructures.xsd" 
+		namespace="http://roomer.promoir.nl/datamodel/canonical/datastructures/2014/01/" />
+	<import 
+		schemaLocation="../FinancialDataModel/RoomerFinancialDataModel_ModelObjects.xsd" 
+		namespace="http://roomer.promoir.nl/datamodel/financial/modelobjects/2014/01/" />
+	
+	<element name="Booking">
+		<complexType>
+			<complexContent>
+				<extension base="rmrhmo:POSBookingType"/>
+			</complexContent>
+		</complexType>
+	</element>
+	
+	<element name="RoomRequest" substitutionGroup="rmrds:BaseRoomRequest">
+		<complexType>
+			<complexContent>
+				<extension base="rmrhmo:POSRoomRequestType">
+					<sequence>
+						<element name="RoomAssignment">
+							<complexType>
+								<attribute name="from" type="date" use="required"/>
+								<attribute name="to" type="date" use="required"/>
+								<attribute name="room" type="string" use="required"/>
+							</complexType>
+						</element>
+					</sequence>
+				</extension>
+			</complexContent>
+		</complexType>
+	</element>
+	
+	<complexType name="POSBookingType">
+		<complexContent>
+			<extension base="rmrds:BookingType">
+				<attribute name="reservation" type="string" use="required" />
+			</extension>
+		</complexContent>
+	</complexType>
+
+	<complexType name="POSRoomRequestType">
+		<complexContent>
+			<extension base="rmrds:RoomRequestType">
+				<attribute name="room" type="string" use="required" />
+				<attribute name="roomReservation" type="string" use="required" />
+			</extension>
+		</complexContent>
+	</complexType>
+
+	<complexType name="POSBillableEntryType">
+		<complexContent>
+			<extension base="rmrfmo:BillableEntryType">
+				<sequence>
+					<element name="vat" type="rmrfmo:VatType" minOccurs="1" maxOccurs="1" />
+					<element name="type" type="rmrbt:ItemType" minOccurs="1" maxOccurs="1" />
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+
+
+    <complexType name="POSPaymentType">
+        <sequence>
+            <element name="amount" type="rmrfmo:AmountType"/>
+            <element name="paymentMethod">
+				<complexType>
+				    <annotation>
+				        <documentation>paymentTypeName: Identifying name of the payment method used. For example, CASH or VISA, MC, etc.</documentation>
+				        <documentation>paymentTypeDescription: Description of the payment method used.</documentation>
+				    </annotation>
+				    <attribute name="paymentTypeName" type="string" use="required"/>
+				     <attribute name="paymentTypeDescription" type="string" use="required"/>
+				</complexType>
+            </element>
+        </sequence>
+   	</complexType>
+
+
+</schema>
