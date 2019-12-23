@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema
+	targetNamespace="http://roomer.promoir.nl/datamodel/inventory/modelobjects/2015/11/"
+	elementFormDefault="qualified"
+	xmlns:rmrst="http://roomer.promoir.nl/datamodel/canonical/simpletypes/2014/01/"
+	xmlns:rmrbt="http://roomer.promoir.nl/datamodel/canonical/basetypes/2014/01/"
+	xmlns:rmrds="http://roomer.promoir.nl/datamodel/canonical/datastructures/2014/01/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:rmrimo="http://roomer.promoir.nl/datamodel/inventory/modelobjects/2015/11/">
+	<xsd:import
+		schemaLocation="../CanonicalDataModel/RoomerCanonicalDataModel_SimpleTypes.xsd"
+		namespace="http://roomer.promoir.nl/datamodel/canonical/simpletypes/2014/01/" />
+	<xsd:import
+		schemaLocation="../CanonicalDataModel/RoomerCanonicalDataModel_BaseTypes.xsd"
+		namespace="http://roomer.promoir.nl/datamodel/canonical/basetypes/2014/01/" />
+	<xsd:import
+		schemaLocation="../CanonicalDataModel/RoomerCanonicalDataModel_DataStructures.xsd"
+		namespace="http://roomer.promoir.nl/datamodel/canonical/datastructures/2014/01/" />
+
+	<xsd:element name="RoomList">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="Room" type="rmrbt:RoomType"
+					minOccurs="0" maxOccurs="unbounded" />
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:element name="RoomStatusList">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="RoomStatus" type="rmrds:RoomStatusType"
+					minOccurs="0" maxOccurs="unbounded" />
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:element name="StockItemRoomAssociation">
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="rmrbt:StockItemWithRentPriceType">
+					<xsd:attribute name="bookingId" type="xsd:string"
+						use="required" />
+					<xsd:attribute name="roomReservationId" type="xsd:string"
+						use="required" />
+					<xsd:attribute name="roomName" type="xsd:string" />
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:element name="StockItemPricingOverview">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="stockItemOverview" maxOccurs="unbounded">
+					<xsd:complexType>
+						<xsd:complexContent>
+							<xsd:extension base="rmrbt:StockItemType">
+								<xsd:sequence>
+									<xsd:element name="price" minOccurs="0" maxOccurs="unbounded">
+										<xsd:complexType>
+											<xsd:attribute name="from" type="xsd:date" />
+											<xsd:attributeGroup ref="rmrbt:AmountGroup" />
+										</xsd:complexType>
+									</xsd:element>
+								</xsd:sequence>
+							</xsd:extension>
+						</xsd:complexContent>
+					</xsd:complexType>
+				</xsd:element>
+			</xsd:sequence>
+
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:element name="StockItemRoomAssociationOverview">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="stockItemAssociation" maxOccurs="unbounded">
+					<xsd:complexType>
+						<xsd:complexContent>
+							<xsd:extension base="rmrbt:StockItemType">
+								<xsd:sequence>
+									<xsd:element name="roomAssociation" minOccurs="0"
+										maxOccurs="unbounded">
+										<xsd:complexType>
+											<xsd:attribute name="count" type="xsd:nonNegativeInteger"
+												use="required" />
+											<xsd:attribute name="salesDate" type="xsd:dateTime" />
+											<xsd:attribute name="bookingId" type="xsd:string" use="required" />
+											<xsd:attribute name="roomReservationId" type="xsd:string"
+												use="required" />
+											<xsd:attribute name="roomName" type="xsd:string" />
+											<xsd:attributeGroup ref="rmrbt:AmountGroup" />
+										</xsd:complexType>
+									</xsd:element>
+								</xsd:sequence>
+								<xsd:attribute name="stillInStock" type="xsd:nonNegativeInteger"
+									use="required" />
+								<xsd:attribute name="inUse" type="xsd:nonNegativeInteger"
+									use="required" />
+								<xsd:attribute name="date" type="xsd:date" use="required" />
+							</xsd:extension>
+						</xsd:complexContent>
+					</xsd:complexType>
+				</xsd:element>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>

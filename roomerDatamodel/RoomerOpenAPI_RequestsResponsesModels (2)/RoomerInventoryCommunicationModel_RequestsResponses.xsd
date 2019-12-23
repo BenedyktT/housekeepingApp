@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema targetNamespace="http://www.promoir.nl/roomer/inventory/2014/08" elementFormDefault="qualified"
+	xmlns="http://www.w3.org/2001/XMLSchema" xmlns:ricm="http://www.promoir.nl/roomer/inventory/2014/08"
+	xmlns:rmrst="http://roomer.promoir.nl/datamodel/canonical/simpletypes/2014/01/"
+	xmlns:rmrbt="http://roomer.promoir.nl/datamodel/canonical/basetypes/2014/01/"
+	xmlns:rmrds="http://roomer.promoir.nl/datamodel/canonical/datastructures/2014/01/" 
+	xmlns:rmrimo="http://roomer.promoir.nl/datamodel/inventory/modelobjects/2015/11/">
+	<import
+		schemaLocation="../../../../Roomer_Data_and_Service_Models/CanonicalDataModel/RoomerCanonicalDataModel_SimpleTypes.xsd"
+		namespace="http://roomer.promoir.nl/datamodel/canonical/simpletypes/2014/01/">
+	</import>
+	<import
+		schemaLocation="../../../../Roomer_Data_and_Service_Models/CanonicalDataModel/RoomerCanonicalDataModel_BaseTypes.xsd"
+		namespace="http://roomer.promoir.nl/datamodel/canonical/basetypes/2014/01/">
+	</import>
+	<import
+		schemaLocation="../../../../Roomer_Data_and_Service_Models/CanonicalDataModel/RoomerCanonicalDataModel_DataStructures.xsd"
+		namespace="http://roomer.promoir.nl/datamodel/canonical/datastructures/2014/01/">
+	</import>
+	<import 
+		schemaLocation="../../../../Roomer_Data_and_Service_Models/InventoryDataModel/RoomerInventoryDataModel_ModelObjects.xsd" 
+		namespace="http://roomer.promoir.nl/datamodel/inventory/modelobjects/2015/11/"/>
+	<element name="InventoryOverviewResponse">
+		<annotation>
+			<documentation>
+				This document is the response given when a listing of inventories is requested. A document according to
+				this schema element contains one or more inventory overviews for one or more hotels (one overview per
+				hotel).
+			</documentation>
+		</annotation>
+		<complexType>
+			<sequence>
+				<element ref="ricm:InventoryOverview" maxOccurs="unbounded" />
+			</sequence>
+		</complexType>
+	</element>
+
+	<element name="InventoryOverview">
+		<annotation>
+			<documentation>
+				An inventory overview gives an overview of the current inventory of a specific hotel (hotel ID given in
+				the XML document). The overview consists of one or more inventory items.
+			</documentation>
+		</annotation>
+		<complexType>
+			<sequence>
+				<element ref="ricm:InventoryItem" maxOccurs="unbounded" minOccurs="0">
+					<annotation>
+						<documentation>
+							An inventory item describes a room type with all its attributes for a date or date range
+							(availability, rate per night according to different rate plans, etc.).
+						</documentation>
+					</annotation>
+				</element>
+			</sequence>
+			<attribute name="hotelId" use="required" type="string">
+				<annotation>
+					<documentation>This is the code of the hotel to which the inventory belongs.</documentation>
+				</annotation>
+			</attribute>
+		</complexType>
+	</element>
+
+	<element name="InventoryItem" type="rmrbt:InventoryItemType" />
+	
+	<element name="RoomListingResponse">
+		<annotation>
+			<documentation>This is the response given when a room listing is requested. A room listing can either be a general listing of all rooms, or a room status overview for a specific date.</documentation>
+		</annotation>
+		<complexType>
+			<choice>
+				<element ref="rmrimo:RoomList"/>
+				<element ref="rmrimo:RoomStatusList"/>
+			</choice>
+		</complexType>
+	</element>
+	
+	<element name="StockItemRoomAssociationResponse">
+		<annotation><documentation>This is the response given when a listing of stock items associated with a (room) reservation is requested.</documentation></annotation>
+		<complexType>
+			<sequence>
+				<element ref="rmrimo:StockItemRoomAssociation" minOccurs="0" maxOccurs="1"/>
+			</sequence>
+		</complexType>
+	</element>
+	
+	<element name="StockItemListingResponse">
+		<annotation><documentation>This is the response given when a management listing of stock items is requested.</documentation></annotation>
+		<complexType>
+			<all>
+				<element ref="rmrimo:StockItemPricingOverview" minOccurs="0"/>
+				<element ref="rmrimo:StockItemRoomAssociationOverview" minOccurs="0"/>
+			</all>
+		</complexType>
+	</element>
+	
+</schema>
