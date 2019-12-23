@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<PaymentEstimateResponse>
+    <BookingRequestType channelCode=" " channelManagerCode="">
+        <NewBooking>
+            <BookingType>
+                <guest>
+                    <ReferenceableGuestType>
+                        <GuestType id="000000000">
+                            <firstName>Stadgreitt</firstName>
+                            <lastName>Test</lastName>
+                            <gender>
+                                <GenderType>MALE</GenderType>
+                            </gender>
+                            <title>Mr</title>
+                            <dateOfBirth>1991-02-26</dateOfBirth>
+                            <guestAgeCategory>
+                                <GuestAgeCategoryType>ADULT</GuestAgeCategoryType>
+                            </guestAgeCategory>
+                            <address>
+                                <AddressType>
+                                    <houseNumber>1</houseNumber>
+                                    <extension>1</extension>
+                                    <postOfficeBoxNumber>123</postOfficeBoxNumber>
+                                    <street>123</street>
+                                    <postalCode>880</postalCode>
+                                    <postalDistrict>Stadgreitt</postalDistrict>
+                                    <municipality>Stadgreitt</municipality>
+                                    <county>Iceland</county>
+                                    <state>Iceland</state>
+                                    <country>Iceland</country>
+                                </AddressType>
+                            </address>
+                            <contactDetails>
+                                <ContactDetailsType>
+                                    <telephone>123456</telephone>
+                                    <mobile>123456</mobile>
+                                    <email>odrywca@gmail.com</email>
+                                    <fax>12345</fax>
+                                </ContactDetailsType>
+                            </contactDetails>
+                        </GuestType>
+                    </ReferenceableGuestType>
+                </guest>
+                <BaseRoomRequest>
+                    <RoomRequestType roomType="STD" arrivalDateTime="2019-12-18T12:00:00" departureDateTime="2019-12-19T12:00:00">
+                        <guest>000000000</guest> <!-- type="IDREF" -->
+                        <ratePlan>
+                            <RatePlanType ratePlan="" roomType="STD">
+                                <rate>
+                                    <RateType from="2019-12-18" to="2019-12-19" multiplier="" currency="EUR" amount="12345">
+                                        <!--type from to:date type multiplier:decimal-->
+
+                                    </RateType>
+                                </rate>
+                            </RatePlanType>
+                        </ratePlan>
+                        <specialServiceRequests>
+                            <SpecialServiceRequestsType></SpecialServiceRequestsType>
+                        </specialServiceRequests>
+                        <remarks>
+                            <RemarksType>
+                                <remark>Halo</remark>
+                            </RemarksType>
+                        </remarks>
+
+                    </RoomRequestType>
+                </BaseRoomRequest>
+                <remarks></remarks>
+            </BookingType>
+        </NewBooking>
+    </BookingRequestType>
+</PaymentEstimateResponse>

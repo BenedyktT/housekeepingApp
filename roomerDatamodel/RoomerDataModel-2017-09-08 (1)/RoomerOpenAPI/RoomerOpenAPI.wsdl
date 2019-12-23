@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<description xmlns="http://www.w3.org/ns/wsdl" targetNamespace="http://roomer.promoir.nl/openapi/srvcs/wsdl/2014/01/"
+	xmlns:rmrsvcs="http://roomer.promoir.nl/openapi/srvcs/wsdl/2014/01/" xmlns:rmrbmo="http://roomer.promoir.nl/datamodel/booking/modelobjects/2014/01/"
+	xmlns:rmrhmo="http://roomer.promoir.nl/datamodel/housing/modelobjects/2014/01/" xmlns:whttp="http://www.w3.org/ns/wsdl/http" xmlns:rmrpbt="http://roomer.promoir.nl/datamodel/payment/basetypes/2014/01/"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xsi:schemaLocation="http://www.w3.org/ns/wsdl/http http://www.w3.org/2002/ws/desc/ns/http.xsd
+			 					 http://www.w3.org/ns/wsdl http://www.w3.org/2002/ws/desc/ns/wsdl20.xsd">
+
+	<types>
+		<xs:schema>
+			<xs:import namespace="http://roomer.promoir.nl/datamodel/booking/modelobjects/2014/01/" schemaLocation="../BookingDataModel/RoomerBookingDataModel_ModelObjects.xsd" />
+			<xs:import namespace="http://roomer.promoir.nl/datamodel/payment/basetypes/2014/01/" schemaLocation="../BookingPaymentModel/RoomerBookingPaymentModel_BaseTypes.xsd" />
+
+			<xs:element name="NewBookingRequest">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element ref="rmrbmo:NewBooking" />
+						<xs:element name="paymentRequest" type="rmrpbt:PaymentRequest" minOccurs="0"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+
+			<xs:element name="NewBookingResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element ref="rmrbmo:ExistingBooking" />
+						<xs:element name="paymentReceipt" type="rmrpbt:PaymentReceipt" minOccurs="0"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:schema>
+	</types>
+
+	<interface name="Booking">
+		<operation name="createNewBooking" pattern="http://www.w3.org/ns/wsdl/in-out" style="http://www.w3.org/ns/wsdl/style/iri">
+			<input messageLabel="In" element="NewBookingRequest" />
+			<input messageLabel="Out" element="NewBookingResponse" />
+		</operation>
+	</interface>
+
+	<binding name="BookingRESTBinding" type="http://www.w3.org/ns/wsdl/http" interface="Booking"
+		whttp:contentEncodingDefault="application/xml">
+		<operation ref="createNewBooking" whttp:location="/bookings" whttp:method="POST">
+			<input messageLabel="In" whttp:contentEncoding="application/json" />
+			<output messageLabel="Out" whttp:contentEncoding="application/json" />
+		</operation>
+	</binding>
+
+	<binding name="BookingSOAPBinding" interface="Booking" type="http://www.w3.org/ns/wsdl/soap"
+		wsoap:protocol="http://www.w3.org/2003/05/soap/bindings/HTTP/">
+		<operation ref="createNewBooking" wsoap:mep="http://www.w3.org/2003/05/soap/mep/soap-response" />
+	</binding>
+
+	<service name="BookingService" interface="Booking">
+		<endpoint name="BookingSOAPEndpoint" binding="BookingSOAPBinding" address="https://openapi.roomercloud.net/services/soap" />
+		<endpoint name="BookingRESTEndpoint" binding="BookingRESTBinding" address="https://openapi.roomercloud.net/services/rest" />
+	</service>
+</description>

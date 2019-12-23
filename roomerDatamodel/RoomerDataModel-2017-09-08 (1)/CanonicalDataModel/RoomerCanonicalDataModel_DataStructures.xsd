@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://roomer.promoir.nl/datamodel/canonical/datastructures/2014/01/"
+	xmlns:rmrds="http://roomer.promoir.nl/datamodel/canonical/datastructures/2014/01/"
+	elementFormDefault="qualified"
+	xmlns:rmrbt="http://roomer.promoir.nl/datamodel/canonical/basetypes/2014/01/"
+	xmlns:rmrst="http://roomer.promoir.nl/datamodel/canonical/simpletypes/2014/01/">
+
+	<annotation>
+		<documentation>This XSD is part of the Roomer canonical data model.
+
+			It
+			specifies the canonical structure of a number of
+			domain model concepts
+			of the Roomer domain in terms of complex
+			types. Several of these types
+			will have to be extended
+			or restricted in specific XSDs for specific
+			uses, but the
+			canonical structures may be found here.
+		</documentation>
+	</annotation>
+	<import schemaLocation="RoomerCanonicalDataModel_BaseTypes.xsd"
+		namespace="http://roomer.promoir.nl/datamodel/canonical/basetypes/2014/01/" />
+	<import schemaLocation="RoomerCanonicalDataModel_SimpleTypes.xsd"
+		namespace="http://roomer.promoir.nl/datamodel/canonical/simpletypes/2014/01/" />
+
+
+	<complexType name="AddStaticResourceType">
+		<annotation>
+			<documentation>The "AddStaticResourceType" is a canonical description
+				of a response generated after
+				a new static resource was added into
+				the Roomer system.
+			</documentation>
+		</annotation>
+		<sequence>
+			<element name="filename" type="string" minOccurs="0"
+				maxOccurs="1" />
+			<element name="path" type="string" minOccurs="0" maxOccurs="1" />
+			<element name="success" type="boolean" minOccurs="0"
+				maxOccurs="1" />
+			<element name="error" type="string" minOccurs="0" maxOccurs="1" />
+		</sequence>
+	</complexType>
+
+	<complexType name="AppInstanceRegistrationType">
+		<annotation>
+			<documentation>The "AppInstanceRegistrationType" is a canonical
+				description of a response generated after
+				a new application instance
+				is registered into the Roomer system.
+			</documentation>
+		</annotation>
+		<sequence>
+			<element name="key" type="string" />
+			<element name="secret" type="string" />
+		</sequence>
+	</complexType>
+
+	<complexType name="BookingType">
+		<annotation>
+			<documentation>The BookingType gives the canonical structure of a
+				booking: a number of rooms requested for given
+				dates, with a number
+				of guests related to those room requests in different ways.
+			</documentation>
+		</annotation>
+		<sequence>
+			<element name="guest" type="rmrds:ReferenceableGuestType"
+				maxOccurs="unbounded" />
+			<element ref="rmrds:BaseRoomRequest" maxOccurs="unbounded" />
+			<element name="remarks" type="rmrbt:RemarksType" minOccurs="0"
+				maxOccurs="1" />
+		</sequence>
+	</complexType>
+
+	<complexType name="ExistingBookingType">
+		<complexContent>
+			<extension base="rmrds:BookingType">
+				<attribute name="bookingId" type="rmrst:BookingIDType"
+					use="required" />
+				<attribute name="bookDate" type="dateTime" use="required" />
+				<attribute name="bookingState" type="rmrst:BookingStateType"
+					use="required" />
+			</extension>
+		</complexContent>
+	</complexType>
+
+	<complexType name="GuestType">
+		<annotation>
+			<documentation>The GuestType is a canonical description of a guest (a
+				customer of a hotel that uses Roomer). In
+				includes address and
+				contact information.
+			</documentation>
+		</annotation>
+		<sequence>
+			<element name="firstName" type="string" minOccurs="1"
+				maxOccurs="unbounded" />
+			<element name="lastName" type="string" minOccurs="0"
+				maxOccurs="unbounded" />
+			<element name="gender" type="rmrst:GenderType" minOccurs="0"
+				maxOccurs="1" />
+			<element name="title" type="string" minOccurs="0" maxOccurs="unbounded" />
+			<element name="dateOfBirth" type="date" minOccurs="0"
+				maxOccurs="1" />
+			<element name="guestAgeCategory" type="rmrst:GuestAgeCategoryType"
+				minOccurs="0" maxOccurs="1" />
+			<element name="address" type="rmrbt:AddressType" minOccurs="1"
+				maxOccurs="1" />
+			<element name="contactDetails" type="rmrbt:ContactDetailsType"
+				minOccurs="0" maxOccurs="1" />
+		</sequence>
+	</complexType>
+
+	<complexType name="InventoryOverviewType">
+		<annotation>
+			<documentation>The InventoryOverviewType is a canonical description
+				of an overview of the inventory of a hotel.
+			</documentation>
+		</annotation>
+		<sequence>
+			<element name="inventoryItem" maxOccurs="unbounded"
+				type="rmrbt:InventoryItemType" />
+		</sequence>
+	</complexType>
+
+	<complexType name="ReferenceableGuestType">
+		<complexContent>
+			<extension base="rmrds:GuestType">
+				<attribute name="id" type="ID" use="required" />
+			</extension>
+		</complexContent>
+	</complexType>
+
+	<complexType name="RoomKeyType">
+		<annotation>
+			<documentation>A RoomKeyType describes the canonical form of a key
+				associated with a room reservation.
+			</documentation>
+		</annotation>
+		<attribute name="id" type="ID" use="optional" />
+		<attribute name="key" type="string" use="required" />
+		<attribute name="active" type="boolean" use="optional" />
+		<attribute name="validFrom" type="dateTime" use="optional" />
+		<attribute name="validTo" type="dateTime" use="optional" />
+	</complexType>
+
+	<complexType name="RoomRequestType">
+		<annotation>
+			<documentation>A RoomRequestType describes the canonical request for
+				a room within a booking. This type will serve as
+				a base type for more
+				extensive complex types specialized to different situations such as
+				billing and reporting.
+			</documentation>
+		</annotation>
+		<sequence>
+			<element name="guest" type="IDREF" minOccurs="1" maxOccurs="unbounded" />
+			<element name="ratePlan" type="rmrbt:RatePlanType" minOccurs="0" />
+			<element name="specialServiceRequests" type="rmrbt:SpecialServiceRequestsType"
+				minOccurs="0" maxOccurs="1" />
+			<element name="remarks" type="rmrbt:RemarksType" minOccurs="0"
+				maxOccurs="1" />
+		</sequence>
+		<attribute ref="rmrst:roomType" use="required" />
+		<attribute name="arrivalDateTime" type="dateTime" use="required" />
+		<attribute name="departureDateTime" type="dateTime" use="required" />
+	</complexType>
+
+	<complexType name="RoomStatusType">
+		<complexContent>
+			<extension base="rmrbt:RoomType">
+				<attribute name="roomState" type="rmrst:RoomStateType"
+					use="required" />
+				<attribute name="bookingId" type="string" />
+				<attribute name="roomReservationId" type="string" />
+			</extension>
+		</complexContent>
+	</complexType>
+
+	<element name="BaseRoomRequest" abstract="false"
+		type="rmrds:RoomRequestType">
+		<annotation>
+			<documentation>This is an abstract element type which is used in the
+				BookingType. Its sole purpose is to introduce a
+				name, allowing
+				multiple extensions of RoomRequestType to be used in a BookingType
+				by means of the substitutionGroup
+				extension mechanism.
+			</documentation>
+		</annotation>
+	</element>
+
+	<element name="DayClosingTimestampType">
+		<complexType>
+			<attribute name="day" type="date" use="required" />
+			<attribute name="closingtimestamp" type="dateTime" use="required" />
+		</complexType>
+	</element>
+
+	<complexType name="RoomRentTaxReceiptType">
+		<annotation>
+			<documentation>
+				This type contains a receipt for tax calculations.
+			</documentation>
+		</annotation>
+		<sequence>
+			<element name="basePrice">
+				<complexType>
+					<attributeGroup ref="rmrbt:AmountGroup" />
+				</complexType>
+			</element>
+			<element name="roomRentVat">
+				<complexType>
+					<attributeGroup ref="rmrbt:AmountGroup" />
+				</complexType>
+			</element>
+			<element name="cityTax">
+				<complexType>
+					<attributeGroup ref="rmrbt:AmountGroup" />
+				</complexType>
+			</element>
+			<element name="cityTaxVat" minOccurs="0">
+				<complexType>
+					<attributeGroup ref="rmrbt:AmountGroup" />
+				</complexType>
+			</element>
+		</sequence>
+		<attribute name="cityTaxIncludedInRoomPrice" type="boolean"
+			use="required" />
+		<attribute name="item" type="string" use="required" />
+		<attribute name="description" type="string" />
+		<attribute name="roomReservationId" type="integer" />
+		<attribute name="stayDate" type="date" />
+	</complexType>
+</schema>

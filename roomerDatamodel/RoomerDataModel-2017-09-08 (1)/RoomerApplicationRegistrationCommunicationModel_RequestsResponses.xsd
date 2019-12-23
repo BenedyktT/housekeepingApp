@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema targetNamespace="http://www.promoir.nl/roomer/application/registration/2014/04" elementFormDefault="qualified"
+	xmlns="http://www.w3.org/2001/XMLSchema"
+	xmlns:rmrds="http://roomer.promoir.nl/datamodel/canonical/datastructures/2014/01/">
+	
+	<import schemaLocation="../../../../Roomer_Data_and_Service_Models/CanonicalDataModel/RoomerCanonicalDataModel_DataStructures.xsd"
+		namespace="http://roomer.promoir.nl/datamodel/canonical/datastructures/2014/01/">
+	</import>
+
+	<element name="ApplicationInstanceRegistrationResponse">
+		<complexType>
+			<sequence>
+				<element name="registrationResponse" type="rmrds:AppInstanceRegistrationType" />
+			</sequence>
+		</complexType>
+	</element>
+
+	<element name="GenerateSecretResponse">
+		<complexType>
+			<sequence>
+				<element name="secret" type="string" />
+			</sequence>
+		</complexType>
+	</element>
+</schema>
