@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema targetNamespace="http://www.promoir.nl/roomer/pos/2014/03" elementFormDefault="qualified"
+	xmlns="http://www.w3.org/2001/XMLSchema" xmlns:rpcm="http://www.promoir.nl/roomer/pos/2014/03"
+	xmlns:rmrhmo="http://roomer.promoir.nl/datamodel/housing/modelobjects/2014/01/">
+	<import
+		schemaLocation="../../../../Roomer_Data_and_Service_Models/HousingDataModel/RoomerHousingDataModel_ModelObjects.xsd"
+		namespace="http://roomer.promoir.nl/datamodel/housing/modelobjects/2014/01/">
+	</import>
+
+    <element name="POSSaleRequest">
+    	<complexType>
+    		<sequence>
+    			<element name="ticketInfo" type="rmrhmo:POSBillableEntryType" maxOccurs="unbounded"/>
+                <element name="payment" type="rmrhmo:POSPaymentType" minOccurs="0" maxOccurs="unbounded"/>
+    		</sequence>
+            <attribute name="POSReceipt" type="string" use="optional">
+                <annotation><documentation>Optional:the unique identifier of this receipt in the POS System.</documentation></annotation>
+            </attribute>
+
+    	</complexType>
+    </element>
+    
+    <element name="BookingsResponse">
+    	<complexType>
+    		<sequence>
+    			<element ref="rmrhmo:Booking" maxOccurs="unbounded"/>
+    		</sequence>
+    	</complexType>
+    </element>
+</schema>

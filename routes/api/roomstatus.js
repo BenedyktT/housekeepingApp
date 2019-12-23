@@ -71,13 +71,13 @@ router.post("/", async (req, res, next) => {
       {
         headers: {
           Accept: "application/json",
-          "Content-Type": "application/json",
+          "Content-Type": "application/xml",
           "Promoir-Roomer-Hotel-Secret": token
         }
       }
     );
 
-    const json = {
+    const xml = {
       BookingRequestType: {
         NewBooking: {
           BookingType: {

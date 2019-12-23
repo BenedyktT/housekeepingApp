@@ -1,0 +1,429 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema targetNamespace="http://roomer.promoir.nl/datamodel/canonical/basetypes/2014/01/" elementFormDefault="qualified"
+	xmlns="http://www.w3.org/2001/XMLSchema" xmlns:rmrbt="http://roomer.promoir.nl/datamodel/canonical/basetypes/2014/01/"
+	xmlns:rmrst="http://roomer.promoir.nl/datamodel/canonical/simpletypes/2014/01/">
+
+	<annotation>
+		<documentation>This XSD is part of the Roomer canonical data model.
+
+			It specifies the structure of some basic, reusable
+			complex types that are useful but not in and of themselves
+			meaningful as domain concepts within Roomer.
+		</documentation>
+	</annotation>
+	<import namespace="http://roomer.promoir.nl/datamodel/canonical/simpletypes/2014/01/" id="rmrst"
+		schemaLocation="RoomerCanonicalDataModel_SimpleTypes.xsd" />
+
+	<complexType name="AddressType">
+		<annotation>
+			<documentation>This complextype describes the general form of a mailing address of a person.</documentation>
+		</annotation>
+		<sequence>
+			<element name="houseNumber" type="string" minOccurs="0" maxOccurs="1" />
+			<element name="extension" type="string" minOccurs="0" maxOccurs="1" />
+			<element name="postOfficeBoxNumber" type="string" minOccurs="0" maxOccurs="1" />
+			<element name="street" type="string" minOccurs="1" maxOccurs="4" />
+			<element name="postalCode" type="string" minOccurs="0" maxOccurs="1" />
+			<element name="postalDistrict" type="string" minOccurs="0" maxOccurs="1" />
+			<element name="municipality" type="string" minOccurs="0" maxOccurs="1" />
+			<element name="county" type="string" minOccurs="0" maxOccurs="1" />
+			<element name="state" type="string" minOccurs="0" maxOccurs="1" />
+			<element name="country" type="string" minOccurs="1" maxOccurs="1" />
+		</sequence>
+	</complexType>
+
+	<attributeGroup name="AmountGroup">
+		<annotation>
+			<documentation>A grouping of the attributes that together express an amount of money.</documentation>
+		</annotation>
+		<attribute name="currency" type="rmrst:ISO4217CurrencyCode" use="required" />
+		<attribute name="amount" type="decimal" use="required" />
+	</attributeGroup>
+
+	<complexType name="ChannelInventoryItemType">
+		<annotation>
+			<documentation>This complex type gives the general structure of a channel inventory item (i.e. a channel supported by
+				Roomer).</documentation>
+		</annotation>
+		<attribute name="channelCode" type="rmrst:ChannelCodeType" use="required" />
+		<attribute name="channelLongCode" type="string" use="optional" />
+		<attribute name="channelName" type="string" use="required" />
+		<attribute name="canBeDirectConnectChannel" type="boolean" use="required"/>
+	</complexType>
+
+	<complexType name="ContactDetailsType">
+		<annotation>
+			<documentation>This complex type gives the general structure of contact details for a person.</documentation>
+		</annotation>
+		<sequence>
+			<element name="telephone" type="rmrst:TelephoneNumberType" minOccurs="0" maxOccurs="unbounded" />
+			<element name="mobile" type="rmrst:TelephoneNumberType" minOccurs="0" maxOccurs="unbounded" />
+			<element name="email" type="rmrst:EmailAddressType" minOccurs="0" maxOccurs="unbounded" />
+			<element name="fax" type="rmrst:TelephoneNumberType" minOccurs="0" maxOccurs="unbounded" />
+		</sequence>
+	</complexType>
+
+	<complexType name="InventoryItemAvailabilityType">
+		<annotation>
+			<documentation>This complex type describes the availability attributes for an inventory item for a hotel. This
+				includes basic availability, but also restrictions.
+			</documentation>
+		</annotation>
+		<sequence>
+			<choice minOccurs="0">
+				<annotation>
+					<documentation>An inventory item availability type describes the availability with its attribute for a given date
+						or date range. If an XML element according to this XSD contains an effectiveDate, then it should be understood to
+						be a description of attributes valid for exactly that date. If the XML element contains a from and a to, then it
+						should be understood as describing attributes that apply to all dates in the described range with both from and to
+						INCLUSIVE in the range. Note that this entire choice can be missing -- in this case, the applicable dates will be
+						given by a containing element.
+					</documentation>
+				</annotation>
+				<element name="effectiveDate" type="date" />
+				<sequence>
+					<element name="from" type="date" />
+					<element name="to" type="date" />
+				</sequence>
+			</choice>
+			<element name="restrictions" type="rmrbt:InventoryItemRestrictionSetType" minOccurs="0">
+				<annotation>
+					<documentation>The restrictions that apply to the available rooms. These restrictions must be obeyed when booking.
+					</documentation>
+				</annotation>
+			</element>
+		</sequence>
+		<attribute name="number" type="nonNegativeInteger" use="optional">
+			<annotation>
+				<documentation>The number of rooms available of the enclosing room type and at the enclosing rate plan.
+				</documentation>
+			</annotation>
+		</attribute>
+	</complexType>
+
+	<complexType name="InventoryItemRateType">
+		<annotation>
+			<documentation>Describes a rate that goes with a rate plan for an inventory item. Such a rate contains an amount, but
+				also an indication of being a single use price and whether or not the rate is gross or netto. Effective dates of the
+				rate may also be given.
+			</documentation>
+		</annotation>
+		<choice minOccurs="0">
+			<annotation>
+				<documentation>An inventory item rate type describes a rate with its attribute for a given date or date range. If an
+					XML element according to this XSD contains an effectiveDate, then it should be understood to be a description of
+					attributes valid for exactly that date. If the XML element contains a from and a to, then it should be understood
+					as describing attributes that apply to all dates in the described range with both from and to INCLUSIVE in the
+					range. Note that this entire choice can be missing -- in this case, the applicable dates will be given by a
+					containing element.
+				</documentation>
+			</annotation>
+			<element name="effectiveDate" type="date" />
+			<sequence>
+				<element name="from" type="date" />
+				<element name="to" type="date" />
+			</sequence>
+		</choice>
+		<attributeGroup ref="rmrbt:AmountGroup">
+			<annotation>
+				<documentation>The actual rate, in terms of an amount of money.</documentation>
+			</annotation>
+		</attributeGroup>
+		<attribute name="extraPersonRate" type="decimal" use="optional">
+			<annotation>
+				<documentation>The amount per extra person (above the "default" number of persons for a room type) per night, in the
+					same currency as the base rate.
+				</documentation>
+			</annotation>
+		</attribute>
+		<attribute name="rateBeforeTax" type="boolean" use="optional" default="false">
+			<annotation>
+				<documentation>True if the given rate is a netto rate (i.e. before application of any taxes). False or not included
+					otherwise.
+				</documentation>
+			</annotation>
+		</attribute>
+		<attribute name="singleUsePrice" type="boolean" use="optional" default="false">
+			<annotation>
+				<documentation>True if the given rate is a single use rate. False or not included
+					if the rate is a per-night rate.
+				</documentation>
+			</annotation>
+		</attribute>
+	</complexType>
+
+	<complexType name="InventoryItemRestrictionSetType">
+		<annotation>
+			<documentation>This complex type collects the restrictions that may be set on an inventory item.</documentation>
+		</annotation>
+		<sequence>
+			<element name="minimumLengthOfStay" minOccurs="0" type="rmrbt:LengthOfStayRestrictionType" />
+			<element name="maximumLengthOfStay" minOccurs="0" type="rmrbt:LengthOfStayRestrictionType" />
+			<element name="statusRestriction" minOccurs="0" type="rmrst:StatusRestrictionValueType" />
+		</sequence>
+	</complexType>
+
+	<complexType name="InventoryItemRatePlanType">
+		<annotation>
+			<documentation>This complex type describes the generic structure of a rate plan as it pertains to an inventory item.
+				It contains the rate(s) for the rate plan on applicable dates and the availability of rooms at that rate.
+			</documentation>
+		</annotation>
+		<sequence>
+			<element name="availability" type="rmrbt:InventoryItemAvailabilityType" maxOccurs="unbounded">
+				<annotation>
+					<documentation>An overview of how many rooms are available on a given date of a certain type with this rate plan.
+						Applicable restrictions are also given.
+					</documentation>
+				</annotation>
+			</element>
+			<element name="rate" type="rmrbt:InventoryItemRateType" maxOccurs="unbounded">
+				<annotation>
+					<documentation>An overview of the rate for a room on a given date of a certain type with this rate plan. Applicable
+						restrictions are also given.
+					</documentation>
+				</annotation>
+			</element>
+			<element name="policy" type="string" minOccurs="0" maxOccurs="unbounded">
+				<annotation>
+					<documentation>A hotel policy that applies to this rate plan (e.g. a cancellation policy).</documentation>
+				</annotation>
+			</element>
+		</sequence>
+		<attribute name="code" type="string" use="required">
+			<annotation>
+				<documentation>The code of the rate plan. This will be needed when making bookings.</documentation>
+			</annotation>
+		</attribute>
+		<attribute name="name" type="string">
+			<annotation>
+				<documentation>A short, human-readable name for the rate plan. May be used for display purposes.</documentation>
+			</annotation>
+		</attribute>
+		<attribute name="description" type="string" use="optional">
+			<annotation>
+				<documentation>A longer, textual description of the rate plan.</documentation>
+			</annotation>
+		</attribute>
+		<attribute name="refundable" type="boolean" use="required">
+			<annotation>
+				<documentation>True if bookings of rooms with this rate plan are refundable; false otherwise.</documentation>
+			</annotation>
+		</attribute>
+		<attribute name="paymentRequirement" use="required" type="rmrst:PaymentRequirementType">
+			<annotation>
+				<documentation>Indicates whether the room must be paid for upfront or on departure (in which case a payment
+					assurance will be required).
+				</documentation>
+			</annotation>
+		</attribute>
+	</complexType>
+
+	<complexType name="InventoryItemType">
+		<annotation>
+			<documentation>This complex type describes the basic structure of an inventory item. I.e. a room type which may be
+				booked. It allows for the combination of a base room type with a rate plan. Dates may be set at this level, or per
+				rate/availability.
+			</documentation>
+		</annotation>
+		<sequence>
+			<choice minOccurs="0">
+				<annotation>
+					<documentation>An inventory item type describes a room type with its attribute for a given date or date range. If
+						an XML element according to this XSD contains an effectiveDate, then it should be understood to be a description
+						of attributes valid for exactly that date. If the XML element contains a from and a to, then it should be
+						understood as describing attributes that apply to all dates in the described range with both from and to INCLUSIVE
+						in the range. Note that this entire choice can be missing -- in this case, the dates that availabilities and rates
+						apply to will be given per availability and rate.
+					</documentation>
+				</annotation>
+				<element name="effectiveDate" type="date" />
+				<sequence>
+					<element name="from" type="date" />
+					<element name="to" type="date" />
+				</sequence>
+			</choice>
+			<element name="ratePlan" type="rmrbt:InventoryItemRatePlanType" maxOccurs="unbounded">
+				<annotation>
+					<documentation>A listing of the rate plans that can apply to a room type, with applicable dates, availabilities and
+						rates.
+					</documentation>
+				</annotation>
+			</element>
+			<element name="roomImage" minOccurs="0" maxOccurs="unbounded" type="anyURI">
+				<annotation>
+					<documentation>If applicable (and requested), an inventory item type may contain URIs of images. These images
+						(provided by the hotel) depict the room type and may be shown to potential guests.
+					</documentation>
+				</annotation>
+			</element>
+		</sequence>
+		<attribute name="code" use="required" type="string">
+			<annotation>
+				<documentation>The room type code of the inventory item. This code will be needed when making a booking for this
+					room type.
+				</documentation>
+			</annotation>
+		</attribute>
+		<attribute name="name" use="optional" type="string">
+			<annotation>
+				<documentation>A short, human-readable name for the room type. May be used for display purposes.</documentation>
+			</annotation>
+		</attribute>
+		<attribute name="plainTextDescription" use="optional" type="string">
+			<annotation>
+				<documentation>A longer, textual description of the room type which may be shown to customers. Can contain details
+					like the amenities of the room type.
+				</documentation>
+			</annotation>
+		</attribute>
+		<attribute name="markupTextDescription" use="optional" type="string">
+			<annotation>
+				<documentation>A longer, textual description of the room type which may be shown to customers. Can contain details
+					like the amenities of the room type. The same text as the plainTextDescription, but may contain HTML markup for
+					direct inclusion on a web page.
+				</documentation>
+			</annotation>
+		</attribute>
+		<attribute name="standardNumberOfGuests" use="required" type="positiveInteger">
+			<annotation>
+				<documentation>The "default" number of guests for a room (for channels and channel managers: this should be the
+					value presented by default to a guest for the number of guests to book into a room). Any number between the minimum
+					and maximum, inclusive.
+				</documentation>
+			</annotation>
+		</attribute>
+		<attribute name="minimumNumberOfGuests" use="optional" type="positiveInteger">
+			<annotation>
+				<documentation>The minimum number of guests required to book a room of this type. Usually this will be 1.
+				</documentation>
+			</annotation>
+		</attribute>
+		<attribute name="maximumNumberOfGuests" use="optional" type="positiveInteger">
+			<annotation>
+				<documentation>The maximum number of guests that can be housed in a room of this type.
+				</documentation>
+			</annotation>
+		</attribute>
+	</complexType>
+
+	<complexType name="ItemType">
+		<annotation>
+			<documentation>
+				This complextype describes the item types that can be added on a running tab.
+			</documentation>
+		</annotation>
+		<attribute name="code" type="string" use="required" />
+		<attribute name="description" type="string" use="optional" />
+	</complexType>
+
+	<complexType name="LengthOfStayRestrictionType">
+		<annotation>
+			<documentation>This complex type defines the general structure of a length of stay restriction.</documentation>
+		</annotation>
+		<attribute name="numberOfNights" type="nonNegativeInteger" use="required" />
+		<attribute name="arrivalDateBased" type="boolean" default="false" use="optional" />
+	</complexType>
+
+	<complexType name="PaymentRequirementType">
+		<annotation>
+			<documentation>This complex type describes a requirement for immmediate payment for a room type on booking.
+			</documentation>
+		</annotation>
+		<attribute name="roomTypeGroup" type="string" use="required" />
+		<attribute name="channel" type="string" use="required" />
+		<attribute name="paymentRequired" type="boolean" use="required" />
+	</complexType>
+
+	<complexType name="RateType">
+		<annotation>
+			<documentation>This complextype describes a rate that may be associated with objects like a rate plan.
+			</documentation>
+		</annotation>
+		<attribute name="from" type="date" use="required" />
+		<attribute name="to" type="date" use="required" />
+		<attributeGroup ref="rmrbt:AmountGroup" />
+		<attribute name="multiplier" type="decimal" use="required" />
+	</complexType>
+
+	<complexType name="RatePlanType">
+		<annotation>
+			<documentation>This complextype describes the general structure of a rate plan.</documentation>
+		</annotation>
+		<sequence>
+			<element name="rate" type="rmrbt:RateType" minOccurs="1" maxOccurs="unbounded" />
+		</sequence>
+		<attribute name="ratePlan" type="string" use="required" />
+		<attribute ref="rmrst:roomType" use="required" />
+	</complexType>
+
+	<complexType name="RemarksType">
+		<annotation>
+			<documentation>This complextype describes the list of remarks that is included in different domain types within
+				Roomer.
+			</documentation>
+		</annotation>
+		<sequence>
+			<element name="remark" type="string" minOccurs="1" maxOccurs="unbounded" />
+		</sequence>
+	</complexType>
+
+	<complexType name="RoomType">
+		<annotation>
+			<documentation>This complex type describes a physical room within a hotel.</documentation>
+		</annotation>
+		<attribute name="roomName" type="string" use="required" />
+		<attribute name="roomType" type="string" use="required" />
+		<attribute name="description" type="string" use="optional" />
+	</complexType>
+
+	<complexType name="SimplifiedAddressType">
+		<sequence>
+			<element name="Address" type="string" />
+			<element name="PostalCode" type="string" />
+			<element name="Locality" type="string" />
+			<element name="Region" type="string" minOccurs="0" />
+			<element name="Country" type="rmrst:ISO31661alpha2CountryCode" minOccurs="0" />
+		</sequence>
+	</complexType>
+
+	<complexType name="SpecialServiceRequestsType">
+		<annotation>
+			<documentation>This complextype describes the list of special service requests that is used in different places
+				within the Roomer domain.
+			</documentation>
+		</annotation>
+		<sequence>
+			<element name="specialServiceRequest" type="rmrst:SpecialServiceRequestType" minOccurs="1" maxOccurs="unbounded" />
+		</sequence>
+	</complexType>
+
+	<complexType name="StockItemType">
+		<annotation>
+			<documentation>This complextype describes a stock item, which is some sort of rentable object of which a hotel has a
+				limited number (a stock).</documentation>
+		</annotation>
+		<attribute name="name" type="string" use="required" />
+		<attribute name="totalstock" type="nonNegativeInteger" use="required" />
+	</complexType>
+
+	<complexType name="StockItemWithRentPriceType">
+		<annotation>
+			<documentation>This complextype describes a stock item, which is some sort of rentable object of which a hotel has a
+				limited number (a stock). This version includes a sales price.</documentation>
+		</annotation>
+		<complexContent>
+			<extension base="rmrbt:StockItemType">
+				<attributeGroup ref="rmrbt:AmountGroup" />
+				<attribute name="effectiveDate" type="date">
+					<annotation>
+						<documentation>The date upon which this item is effective. What that means depends a bit on the service using this
+							type.</documentation>
+					</annotation>
+				</attribute>
+				<attribute name="salesDate" type="dateTime" />
+			</extension>
+		</complexContent>
+	</complexType>
+
+</schema>

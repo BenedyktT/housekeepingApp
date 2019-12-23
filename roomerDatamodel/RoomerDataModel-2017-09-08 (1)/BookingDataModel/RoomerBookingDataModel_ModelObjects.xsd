@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema
+	targetNamespace="http://roomer.promoir.nl/datamodel/booking/modelobjects/2014/01/"
+	elementFormDefault="qualified" xmlns="http://www.w3.org/2001/XMLSchema"
+	xmlns:rmrbmo="http://roomer.promoir.nl/datamodel/booking/modelobjects/2014/01/"
+	xmlns:rmrst="http://roomer.promoir.nl/datamodel/canonical/simpletypes/2014/01/"
+	xmlns:rmrbt="http://roomer.promoir.nl/datamodel/canonical/basetypes/2014/01/"
+	xmlns:rmrds="http://roomer.promoir.nl/datamodel/canonical/datastructures/2014/01/">
+	<annotation>
+		<documentation>
+			This XSD specifies the data model elements used in the
+			booking model. The booking model is a model that
+			is
+			specialized to the
+			task of creating and confirming a new booking.
+		</documentation>
+	</annotation>
+
+	<import
+		schemaLocation="../CanonicalDataModel/RoomerCanonicalDataModel_SimpleTypes.xsd"
+		namespace="http://roomer.promoir.nl/datamodel/canonical/simpletypes/2014/01/">
+	</import>
+	<import schemaLocation="../CanonicalDataModel/RoomerCanonicalDataModel_BaseTypes.xsd"
+		namespace="http://roomer.promoir.nl/datamodel/canonical/basetypes/2014/01/">
+	</import>
+	<import
+		schemaLocation="../CanonicalDataModel/RoomerCanonicalDataModel_DataStructures.xsd"
+		namespace="http://roomer.promoir.nl/datamodel/canonical/datastructures/2014/01/"></import>
+
+	<element name="RoomRequest" substitutionGroup="rmrds:BaseRoomRequest">
+		<complexType>
+			<complexContent>
+				<extension base="rmrds:RoomRequestType" />
+			</complexContent>
+		</complexType>
+	</element>
+
+	<element name="ExistingBooking">
+		<complexType>
+			<complexContent>
+				<extension base="rmrds:ExistingBookingType" />
+			</complexContent>
+		</complexType>
+	</element>
+
+	<element name="NewBooking">
+		<complexType>
+			<complexContent>
+				<extension base="rmrds:BookingType" />
+			</complexContent>
+		</complexType>
+	</element>
+
+	<element name="RoomRentTaxReceiptList">
+		<complexType>
+			<sequence>
+				<element name="Receipt" type="rmrds:RoomRentTaxReceiptType"
+					minOccurs="0" maxOccurs="unbounded">
+				</element>
+			</sequence>
+		</complexType>
+	</element>
+
+</schema>
