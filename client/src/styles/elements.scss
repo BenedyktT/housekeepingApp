@@ -189,3 +189,12 @@ h4 {
 .down-arrow:focus .down-arrow > path {
   transform: rotate(-180deg) translate(0, -35%);
 }
+
+
+
+//loader
+.loader-container{
+  display:flex;
+  justify-content: center;
+  align-items: center;
+}
