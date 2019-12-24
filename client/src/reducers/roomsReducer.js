@@ -10,7 +10,6 @@ export default (state = initialState, action) => {
 		case GET_ROOM_SETUP:
 			const { cleanStatus } = payload;
 			const { currentRooms, nextRooms } = payload.roomStatus;
-			console.log(payload);
 
 			//merge object from two requests (same key)
 			const currentRoomSetup = currentRooms
@@ -40,7 +39,7 @@ export default (state = initialState, action) => {
 					...nextRoomsArr.filter(el => el.Room === Room)
 				);
 			});
-			console.log(roomSetup);
+
 			const co = "CHECKED_OUT";
 			const na = "N_A";
 			const avail = "AVAILABLE";
@@ -84,7 +83,7 @@ export default (state = initialState, action) => {
 					}
 					if (c === arr && n === arr) {
 						vacancy = "Stayover";
-						roomStatus = "Occupied";
+						roomStatus = "Stayover";
 					}
 					if (c === co && n === arr) {
 						vacancy = "Vacant";
