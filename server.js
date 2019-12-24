@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
-
+const connectDB = require("./config/config");
+connectDB();
 app.use(express.json({ extended: false }));
 
 app.use("/cleanstatus", require("./routes/api/cleanstatus"));
