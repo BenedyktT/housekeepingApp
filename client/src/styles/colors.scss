@@ -7,12 +7,12 @@ $blue-primary: #1592e6;
 $occupied: #6200ee;
 $text-white: #e2dada;
 $dark: rgb(197, 193, 193);
-$green-a: #CCFF66;
-$green-b:#2A8B4E;
+$green-a: #ccff66;
+$green-b: #2a8b4e;
 
 $gradient-pink: linear-gradient($pink-a, $pink-b);
-$gradient-blue:linear-gradient($blue-a,$blue-b);
-$gradient-green: linear-gradient($green-a,$green-b);
+$gradient-blue: linear-gradient($blue-a, $blue-b);
+$gradient-green: linear-gradient($green-a, $green-b);
 
 //paddings
 $padding-primary: 1.2rem;
@@ -59,10 +59,15 @@ $font-sub: "Roboto", Arial, Helvetica, cursive, sans-serif;
 .margin-small-x {
   margin: $margin-small-x;
 }
+.margin-y {
+  margin: $margin-y;
+}
 .to-right {
   float: right;
 }
-
+.padding-small {
+  padding: $padding-small;
+}
 //statuses
 .success {
   color: rgb(6, 201, 6);
@@ -71,15 +76,15 @@ $font-sub: "Roboto", Arial, Helvetica, cursive, sans-serif;
   color: rgb(250, 156, 156);
 }
 
-.gradient-blue{
-  background:$gradient-blue;
+.gradient-blue {
+  background: $gradient-blue;
 }
-.gradient-pink{
-  background:$gradient-pink
+.gradient-pink {
+  background: $gradient-pink;
 }
-.gradient-green{
-  background:$gradient-green
+.gradient-green {
+  background: $gradient-green;
 }
-.gradient-dark{
-  background:$dark
+.gradient-dark {
+  background: $dark;
 }

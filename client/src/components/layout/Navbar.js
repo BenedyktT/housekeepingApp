@@ -1,14 +1,25 @@
-import React from "react";
+import React, { Fragment } from "react";
 import avatar from "../../img/ayo-ogunseinde-THIs-cpyebg-unsplash.jpg";
+import { connect } from "react-redux";
 
-const Navbar = () => {
+const Navbar = ({ isAuthenticated }) => {
   return (
     <nav className="nav">
       <div className="avatar">
-        <img src={avatar} alt="avatar" className="avatar__image" />
-        <h3 className="avatar__greet text-white ml-1 sm-text-1">
-          Hi, Angelika
-        </h3>
+        {isAuthenticated ? (
+          <Fragment>
+            <img src={avatar} alt="avatar" className="avatar__image" />
+            <h3 className="avatar__greet text-white ml-1 sm-text-1">
+              Hi, Angelika
+            </h3>
+          </Fragment>
+        ) : (
+          <Fragment>
+            <h3 className="avatar__greet text-white ml-1 sm-text-1">
+              Housekeeping App
+            </h3>
+          </Fragment>
+        )}
       </div>
       <div className="hamburger">
         <span className="hamburger__line"></span>
@@ -23,4 +34,6 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default connect(state => ({
+  isAuthenticated: state.authReducer.isAuthenticated
+}))(Navbar);

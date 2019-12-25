@@ -190,11 +190,24 @@ h4 {
   transform: rotate(-180deg) translate(0, -35%);
 }
 
-
-
 //loader
-.loader-container{
-  display:flex;
+.loader-container {
+  display: flex;
   justify-content: center;
   align-items: center;
+}
+
+//border
+.border {
+  border: 1px solid $dark;
+}
+
+//forms and inputs
+.form {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  margin: auto;
+  justify-content: center;
+  align-items: flex-start;
 }
