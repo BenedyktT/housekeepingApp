@@ -3,7 +3,7 @@ const app = express();
 const connectDB = require("./config/config");
 connectDB();
 app.use(express.json({ extended: false }));
-
+app.use("/user", require("./routes/api/auth/users"));
 app.use("/cleanstatus", require("./routes/api/cleanstatus"));
 app.use("/reservation", require("./routes/api/reservationstatus"));
 app.use("/roomstatus", require("./routes/api/roomstatus"));
