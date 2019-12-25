@@ -1,4 +1,5 @@
+/config/default.json
 /node_modules
 node_modules
 /client/node_modules
-/config/default.json
+
