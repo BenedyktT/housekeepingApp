@@ -24,7 +24,10 @@ const Rooms = ({ rooms, loadRooms, setReportDate }) => {
 					className={classnames(
 						"room",
 						{
-							"gradient-blue": vacancy === "Vacant" || vacancy === "Clean"
+							"gradient-blue":
+								vacancy === "Vacant" ||
+								vacancy === "Clean" ||
+								vacancy === "Not Clean"
 						},
 						{ "gradient-pink": vacancy === "Occupied" },
 						{ "gradient-green": vacancy === "Stayover" },
