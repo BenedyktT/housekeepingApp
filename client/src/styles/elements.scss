@@ -204,10 +204,18 @@ h4 {
 
 //forms and inputs
 .form {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 1fr;
   width: 50%;
+  grid-gap: 1rem;
+  @include respond-to(handhelds){align-items: center;;}
   margin: auto;
   justify-content: center;
   align-items: flex-start;
+}
+
+.input-container{
+  display:grid;
+  grid-template-columns: 1fr;
+  grid-gap:0.5rem
 }

@@ -73,7 +73,6 @@ const Rooms = ({ rooms, loadRooms, setReportDate }) => {
 			)}
 		</div>
 	);
-	/* return <div>loading</div>; */
 };
 
 export default connect(

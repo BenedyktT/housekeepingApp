@@ -6,3 +6,4 @@ export const SHOW_ALL = "SHOW_ALL";
 export const SELECT_HALLWAY = "SELECT_HALLWAY";
 export const GET_CURRENT_CALENDAR_VALUE = "GET_CURRENT_CALENDAR_VALUE";
 export const LOGIN_USER = "LOGIN_USER";
+export const USER_LOADED = "USER_LOADED";

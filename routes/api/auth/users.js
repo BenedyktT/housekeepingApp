@@ -1,8 +1,10 @@
 const express = require("express");
 const User = require("../../../models/User");
-const config = require("config");
+const secret = require("config").get("secretID");
 const router = express.Router();
 const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+const auth = require("./middleware");
 
 //register new user
 
@@ -32,6 +34,7 @@ router.post("/register", async (req, res) => {
 
 router.post("/login", async (req, res) => {
 	const { name, password } = req.body;
+	console.log(name, password);
 	try {
 		let user = await User.findOne({ name });
 		if (!user) {
@@ -41,9 +44,23 @@ router.post("/login", async (req, res) => {
 		if (!isMatch) {
 			return res.json("Invalid Credentials");
 		}
-		res.json(user);
+		const payload = { id: user.id, name: user.name };
+		jwt.sign(payload, secret, { expiresIn: 3600 }, function(err, token) {
+			if (err) throw err;
+			return res.json(token);
+		});
 	} catch (error) {
 		console.error(error);
+		res.json("internal server error");
+	}
+});
+
+router.get("/", auth, async (req, res) => {
+	try {
+		const user = await User.findById(req.user);
+		res.json(user);
+	} catch (error) {
+		console.error(error.message);
 		res.json("internal server error");
 	}
 });
