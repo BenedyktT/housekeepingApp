@@ -2,7 +2,7 @@ import React, { Fragment } from "react";
 import avatar from "../../img/ayo-ogunseinde-THIs-cpyebg-unsplash.jpg";
 import { connect } from "react-redux";
 
-const Navbar = ({ isAuthenticated }) => {
+const Navbar = ({ isAuthenticated, user }) => {
   return (
     <nav className="nav">
       <div className="avatar">
@@ -10,7 +10,7 @@ const Navbar = ({ isAuthenticated }) => {
           <Fragment>
             <img src={avatar} alt="avatar" className="avatar__image" />
             <h3 className="avatar__greet text-white ml-1 sm-text-1">
-              Hi, Angelika
+              Hi, {user ? user.name : null}
             </h3>
           </Fragment>
         ) : (
@@ -35,5 +35,6 @@ const Navbar = ({ isAuthenticated }) => {
 };
 
 export default connect(state => ({
-  isAuthenticated: state.authReducer.isAuthenticated
+  isAuthenticated: state.authReducer.isAuthenticated,
+  user: state.authReducer.user
 }))(Navbar);
