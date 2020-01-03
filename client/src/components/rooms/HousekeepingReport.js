@@ -1,14 +1,21 @@
 import React from "react";
 import FiltersBar from "./FiltersBar";
 import Rooms from "./Rooms";
+import { connect } from "react-redux";
+import Loader from "react-loader-spinner";
 
-const HousekeepingReport = () => {
-  return (
-    <div>
-      <FiltersBar />
-      <Rooms />
-    </div>
-  );
+const HousekeepingReport = isAuthenticated => {
+  if (isAuthenticated) {
+    return (
+      <div>
+        <FiltersBar />
+        <Rooms />
+      </div>
+    );
+  }
+  return <Loader />;
 };
 
-export default HousekeepingReport;
+export default connect(state => ({
+  isAuthenticated: state.authReducer.isAuthenticated
+}))(HousekeepingReport);
