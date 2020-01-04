@@ -24,6 +24,10 @@
   box-shadow: 1px 1px 3px white;
 }
 
+.nooverflow {
+  overflow-y: none;
+}
+
 //TYPOGRAPHY
 h1,
 h2,
@@ -54,6 +58,10 @@ h4 {
 .text-white {
   color: $text-white;
 }
+.text-big {
+  font-size: 1.4rem;
+  font-weight: bold;
+}
 .sm-text-1 {
   @include respond-to(handhelds) {
     font-size: 0.8rem;
@@ -78,6 +86,12 @@ h4 {
   @include respond-to(handhelds) {
     font-size: 0.6rem;
   }
+}
+.hover {
+  transition: color 350ms ease-in-out;
+}
+.link-hover--pink:hover {
+  color: $pink-b;
 }
 
 //container

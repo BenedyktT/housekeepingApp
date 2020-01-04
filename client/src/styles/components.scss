@@ -80,12 +80,14 @@
   background: rgba($blue-primary, 0.5);
   opacity: 0;
   width: 100vw;
-  height: 1000vh;
+  height: 100%;
+  z-index: -1;
   position: absolute;
   transition: opacity 500ms ease-in-out;
 }
 .sidebar__overlay.active {
   opacity: 1;
+  z-index: 1;
 }
 .sidebar {
   //style the background
@@ -111,7 +113,8 @@
   transform: translate(0);
 }
 
-.sidebar__link:hover {
+.sidebar__link:hover,
+.sidebar__link:focus {
   color: $pink-b;
 }
 //avatar

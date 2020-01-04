@@ -4,9 +4,14 @@ const initialState = {
 };
 
 export default (state = initialState, action) => {
-  switch (action.type) {
+  const { type, payload } = action;
+  switch (type) {
     case TOGGLE_NAVBAR_OPEN:
-      return { isNavbarOpen: !state.isNavbarOpen };
+      if (payload === "close") {
+        return { isNavbarOpen: false };
+      } else {
+        return { isNavbarOpen: !state.isNavbarOpen };
+      }
 
     default:
       return state;
