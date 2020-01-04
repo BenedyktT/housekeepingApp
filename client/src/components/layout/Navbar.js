@@ -10,7 +10,10 @@ const Navbar = ({ isAuthenticated, user }) => {
           <Fragment>
             <img src={avatar} alt="avatar" className="avatar__image" />
             <h3 className="avatar__greet text-white ml-1 sm-text-1">
-              Hi, {user ? user.name : null}
+              Hi,{" "}
+              {user
+                ? user.name.charAt(0).toUpperCase() + user.name.slice(1)
+                : null}
             </h3>
           </Fragment>
         ) : (
