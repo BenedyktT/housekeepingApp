@@ -5,8 +5,9 @@ import visibleRooms from "../../selectors/visibleRooms";
 import classnames from "classnames";
 import Loader from "react-loader-spinner";
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
+import disableScroll from "disable-scroll";
 
-const Rooms = ({ rooms, loadRooms, setReportDate }) => {
+const Rooms = ({ rooms, loadRooms, setReportDate, isNavbarOpen }) => {
   const initLoadRooms = useCallback(
     report => {
       loadRooms(report);
@@ -14,8 +15,15 @@ const Rooms = ({ rooms, loadRooms, setReportDate }) => {
     [loadRooms]
   );
   useEffect(() => {
+    if (isNavbarOpen) {
+      disableScroll.on();
+    } else {
+      disableScroll.off();
+    }
+  }, [isNavbarOpen]);
+  useEffect(() => {
     initLoadRooms(setReportDate);
-  }, [initLoadRooms]);
+  }, [initLoadRooms, setReportDate]);
   const render = () => {
     return rooms.map(({ number, cleanStatus, vacancy, roomStatus }) => {
       return (
@@ -79,7 +87,8 @@ const Rooms = ({ rooms, loadRooms, setReportDate }) => {
 export default connect(
   state => ({
     rooms: visibleRooms(state.roomReducer.roomsReport, state.filterReducer),
-    setReportDate: state.filterReducer.getCurrentCalendarValue
+    setReportDate: state.filterReducer.getCurrentCalendarValue,
+    isNavbarOpen: state.layoutReducer.isNavbarOpen
   }),
   { loadRooms }
 )(Rooms);

@@ -92,7 +92,7 @@ export default (state = initialState, action) => {
             vacancy = "Vacant";
             roomStatus = "Departure+Arriving";
           }
-          if (c == arr && n === narr) {
+          if (c === arr && n === narr) {
             vacancy = "Occupied";
             roomStatus = "Departure+Arriving";
           }

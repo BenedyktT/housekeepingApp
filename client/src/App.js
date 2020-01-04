@@ -4,11 +4,12 @@ import Navbar from "./components/layout/Navbar";
 import { Provider } from "react-redux";
 import store from "./store";
 import Landing from "./components/Landing.js";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import HousekeepingReport from "./components/rooms/HousekeepingReport";
 import setAuthToken from "./utils/setAuthToken";
 import { loadUser } from "./actions/authAction";
 import PrivateRoute from "./components/routing/PrivateRoute";
+import SideBar from "./components/layout/SideBar";
 
 if (localStorage.getItem("token")) {
   setAuthToken(localStorage.getItem("token"));
@@ -21,7 +22,9 @@ const App = () => {
   return (
     <Provider store={store}>
       <Navbar />
+
       <Router>
+        <SideBar />
         <Route path="/" exact component={Landing} />
         <Switch>
           <PrivateRoute exact path="/report" component={HousekeepingReport} />
