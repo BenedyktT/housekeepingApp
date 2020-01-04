@@ -4,8 +4,116 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  position: relative;
 }
 
+//hamburger
+.hamburger-container {
+  display: flex;
+}
+.hamburger__checkbox {
+  visibility: hidden;
+}
+
+.hamburger {
+  width: 30px;
+  height: 2px;
+  background: $pink-b;
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+  margin: auto 0;
+  transition: 0.5s;
+  position: relative;
+  z-index: 50;
+  align-self: center;
+}
+
+.hamburger:before,
+.hamburger:after {
+  content: "";
+
+  position: absolute;
+  width: 30px;
+  height: 2px;
+  background: $pink-b;
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+  transition: 0.5s;
+}
+
+.hamburger:before {
+  top: -8px;
+}
+
+.hamburger:after {
+  top: 8px;
+}
+
+//hamburger open
+.hamburger.active {
+  background: rgba($color: #000000, $alpha: 0);
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0);
+}
+.hamburger.active:after {
+  top: 0;
+  transform: rotate(40deg);
+}
+.hamburger.active:before {
+  top: 0;
+  transform: rotate(140deg);
+}
+
+// Hamburger modal
+.hamburger--small {
+  width: 15px;
+  height: 10px;
+  border-bottom: 3px solid $dark;
+  &:before {
+    height: 3px;
+    background: $dark;
+  }
+  &:after {
+    height: 3px;
+    background: $dark;
+  }
+}
+//navbar open sidebar
+.sidebar__overlay {
+  background: rgba($blue-primary, 0.5);
+  opacity: 0;
+  width: 100vw;
+  height: 1000vh;
+  position: absolute;
+  transition: opacity 500ms ease-in-out;
+}
+.sidebar__overlay.active {
+  opacity: 1;
+}
+.sidebar {
+  //style the background
+  width: 200px;
+  height: 100%;
+  background: $gradient-blue;
+  right: 0;
+  position: fixed;
+  transform: translate(100%);
+  z-index: 1000;
+  transition: transform 350ms ease-in-out;
+
+  //place the content
+  display: grid;
+  grid-template-columns: 1fr;
+  padding: $padding-primary;
+  align-content: top;
+  justify-items: center;
+  grid-gap: 1rem;
+  transition: color 350ms ease-in-out;
+}
+.sidebar.active {
+  transform: translate(0);
+}
+
+.sidebar__link:hover {
+  color: $pink-b;
+}
 //avatar
 .avatar {
   display: flex;
@@ -47,7 +155,6 @@
 }
 //room component
 .room {
- 
   margin: $margin-y;
   border-radius: 10px;
   padding: 0.2rem 1.4rem;

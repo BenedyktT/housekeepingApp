@@ -204,7 +204,10 @@ html {
 /**
  * Address `outline` inconsistency between Chrome and other browsers.
  */
-
+a {
+  text-decoration: none;
+  color: inherit;
+}
 a:focus {
   outline: thin dotted;
 }
@@ -422,6 +425,7 @@ textarea {
 
 img {
   vertical-align: middle;
+  display: block;
 }
 
 fieldset {
