@@ -10,6 +10,7 @@ import setAuthToken from "./utils/setAuthToken";
 import { loadUser } from "./actions/authAction";
 import PrivateRoute from "./components/routing/PrivateRoute";
 import SideBar from "./components/layout/SideBar";
+import Logout from "./components/auth/Logout";
 
 if (localStorage.getItem("token")) {
   setAuthToken(localStorage.getItem("token"));
@@ -27,6 +28,7 @@ const App = () => {
         <SideBar />
         <Route path="/" exact component={Landing} />
         <Switch>
+          <Route exact path="/logout" component={Logout} />
           <PrivateRoute exact path="/report" component={HousekeepingReport} />
         </Switch>
       </Router>
