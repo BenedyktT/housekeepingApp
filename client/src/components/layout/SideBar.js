@@ -10,7 +10,7 @@ const SideBar = ({ isNavbarOpen, toggleNavbar, isAuthenticated, logout }) => {
     <Fragment>
       <div
         onClick={() => {
-          toggleNavbar("close");
+          toggleNavbar(false);
         }}
         className={classnames("sidebar__overlay", { active: isNavbarOpen })}
       ></div>

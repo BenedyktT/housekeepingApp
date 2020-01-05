@@ -13,9 +13,9 @@ const Navbar = ({ isAuthenticated, user, toggleNavbar, isNavbarOpen }) => {
             <img src={avatar} alt="avatar" className="avatar__image" />
             <h3 className="avatar__greet text-white ml-1 sm-text-1">
               Hi,{" "}
-              {user.name
+              {user
                 ? user.name.charAt(0).toUpperCase() + user.name.slice(1)
-                : null}
+                : "dear"}
             </h3>
           </Fragment>
         ) : (
