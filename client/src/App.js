@@ -12,6 +12,7 @@ import PrivateRoute from "./components/routing/PrivateRoute";
 import SideBar from "./components/layout/SideBar";
 import Logout from "./components/auth/Logout";
 import About from "./components/static/About";
+import Alert from "./components/layout/Alert";
 
 if (localStorage.getItem("token")) {
   setAuthToken(localStorage.getItem("token"));
@@ -19,7 +20,9 @@ if (localStorage.getItem("token")) {
 
 const App = () => {
   useEffect(() => {
-    store.dispatch(loadUser());
+    if (localStorage.getItem("token")) {
+      store.dispatch(loadUser());
+    }
   }, []);
   return (
     <Provider store={store}>
@@ -27,6 +30,7 @@ const App = () => {
 
       <Router>
         <SideBar />
+        <Alert />
         <Route path="/" exact component={Landing} />
         <Switch>
           <Route exact path="/logout" component={Logout} />
