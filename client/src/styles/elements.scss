@@ -193,3 +193,13 @@ h4 {
   grid-template-columns: 1fr;
   grid-gap: 0.5rem;
 }
+
+//alert
+.alert-danger {
+  border: 1px solid red;
+  background: rgba($pink-b, 0.2);
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  color: black;
+  text-align: center;
+}
