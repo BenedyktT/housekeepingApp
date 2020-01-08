@@ -10,6 +10,7 @@ app.use("/auth", require("./routes/api/auth/googleAuth"));
 app.use("/cleanstatus", require("./routes/api/cleanstatus"));
 app.use("/reservation", require("./routes/api/reservationstatus"));
 app.use("/roomstatus", require("./routes/api/roomstatus"));
+app.use("/roomsetup", require("./routes/api/roomsetup"));
 app.get("/", (req, res) => res.send("API running"));
 const PORT = process.env.PORT || 5000;
 
