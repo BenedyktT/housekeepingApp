@@ -45,9 +45,11 @@ const Rooms = ({ rooms, loadRooms, setReportDate, isNavbarOpen }) => {
             )}
           >
             <div className="room__col--left">
-              <div className="set-clean">
-                Set Clean <i className="fas fa-broom"></i>
-              </div>
+              {vacancy !== "Out of Order" && (
+                <div className="set-clean">
+                  Set Clean <i className="fas fa-broom"></i>
+                </div>
+              )}
               <h4 className="bold">Room {number}</h4>
             </div>
             <span className="hor-line"></span>
