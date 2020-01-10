@@ -25,45 +25,50 @@ const Rooms = ({ rooms, loadRooms, setReportDate, isNavbarOpen }) => {
     initLoadRooms(setReportDate);
   }, [initLoadRooms, setReportDate]);
   const render = () => {
-    return rooms.map(({ number, cleanStatus, vacancy, roomStatus }) => {
-      return (
-        <div
-          key={number}
-          className={classnames(
-            "room",
-            {
-              "gradient-blue":
-                vacancy === "Vacant" ||
-                vacancy === "Clean" ||
-                vacancy === "Not Clean" ||
-                vacancy == null
-            },
-            { "gradient-pink": vacancy === "Occupied" },
-            { "gradient-green": vacancy === "Stayover" },
-            { "gradient-dark": vacancy === "Out of Order" }
-          )}
-        >
-          <div className="room__col--left">
-            <h4 className="bold">Room {number}</h4>
+    return rooms.map(
+      ({ number, cleanStatus, vacancy, roomStatus, roomNote }) => {
+        return (
+          <div
+            key={number}
+            className={classnames(
+              "room",
+              {
+                "gradient-blue":
+                  vacancy === "Vacant" ||
+                  vacancy === "Clean" ||
+                  vacancy === "Not Clean" ||
+                  vacancy == null
+              },
+              { "gradient-pink": vacancy === "Occupied" },
+              { "gradient-green": vacancy === "Stayover" },
+              { "gradient-dark": vacancy === "Out of Order" }
+            )}
+          >
+            <div className="room__col--left">
+              <div className="set-clean">
+                Set Clean <i className="fas fa-broom"></i>
+              </div>
+              <h4 className="bold">Room {number}</h4>
+            </div>
+            <span className="hor-line"></span>
+            <div className="room__col--right">
+              <p className="occupancy small">{vacancy}</p>
+              <p className="reservation">{roomStatus}</p>
+              <p
+                className={
+                  cleanStatus === "Clean"
+                    ? "success clean small"
+                    : "danger clean small"
+                }
+              >
+                {cleanStatus}
+              </p>
+              {roomNote && <p className="note small">{roomNote}</p>}
+            </div>
           </div>
-          <span className="hor-line"></span>
-          <div className="room__col--right">
-            <p className="occupancy small">{vacancy}</p>
-            <p className="reservation">{roomStatus}</p>
-            <p
-              className={
-                cleanStatus === "Clean"
-                  ? "success clean small"
-                  : "danger clean small"
-              }
-            >
-              {cleanStatus}
-            </p>
-            <p className="note small"></p>
-          </div>
-        </div>
-      );
-    });
+        );
+      }
+    );
   };
   return (
     <div className="container">
@@ -76,7 +81,7 @@ const Rooms = ({ rooms, loadRooms, setReportDate, isNavbarOpen }) => {
             color="#00BFFF"
             height={50}
             width={50}
-            timeout={3000} //3 secs
+            timeout={4000} //3 secs
           />
         </div>
       )}
