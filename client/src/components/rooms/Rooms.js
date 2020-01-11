@@ -23,8 +23,8 @@ const Rooms = ({
     [loadRooms]
   );
   useEffect(() => {
-    getCleanRooms();
-  }, []);
+    if (rooms.length) getCleanRooms();
+  }, [rooms.length]);
   useEffect(() => {
     if (isNavbarOpen) {
       disableScroll.on();
@@ -33,11 +33,14 @@ const Rooms = ({
     }
   }, [isNavbarOpen]);
   useEffect(() => {
-    initLoadRooms(setReportDate);
-  }, [initLoadRooms, setReportDate]);
+    if (!rooms.length) {
+      initLoadRooms(setReportDate);
+    }
+  }, [initLoadRooms]);
   const render = () => {
     return rooms.map(
-      ({ number, cleanStatus, vacancy, roomStatus, roomNote }) => {
+      ({ number, cleanStatus, vacancy, roomStatus, roomNote, cleanedBy }) => {
+        console.log(cleanedBy);
         return (
           <div
             key={number}
@@ -56,7 +59,9 @@ const Rooms = ({
             )}
           >
             <div className="room__col--left">
-              {vacancy !== "Out of Order" && (
+              {cleanedBy ? (
+                <p>{cleanedBy}</p>
+              ) : (
                 <button
                   onClick={e => {
                     setClean(number);

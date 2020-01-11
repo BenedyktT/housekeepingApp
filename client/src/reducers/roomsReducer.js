@@ -1,8 +1,7 @@
 import { GET_ROOM_SETUP, SET_CLEAN, GET_CLEAN_ROOMS } from "../actions/types";
 
 const initialState = {
-  roomsReport: [],
-  cleanRooms: []
+  roomsReport: []
 };
 
 export default (state = initialState, action) => {
@@ -143,7 +142,15 @@ export default (state = initialState, action) => {
       return { ...state, roomsReport };
 
     case GET_CLEAN_ROOMS:
-      return { ...state, cleanRooms: payload };
+      state.roomsReport.filter(e => {
+        return payload.map(cleanRooms => {
+          if (cleanRooms.number !== parseInt(e.number)) return;
+          e.cleanStatus = "Clean";
+          e.cleanedBy = cleanRooms.username;
+        });
+      });
+
+      return { ...state };
 
     default:
       return state;
