@@ -51,6 +51,7 @@ export const loadRooms = date => async dispatch => {
 export const setClean = number => async dispatch => {
   try {
     await axios.post(`roomstatus/cleanrooms/${number}`);
+    dispatch(getCleanRooms());
     dispatch(setAlert(`Room ${number} is cleaned`, "success"));
   } catch (error) {
     const errors = error.response.data.errors;
@@ -73,9 +74,6 @@ export const getCleanRooms = () => async dispatch => {
       }))
     });
   } catch (error) {
-    const errors = error.response.data.errors;
-    if (errors.length) {
-      errors.forEach(e => dispatch(setAlert(e.msg, "danger")));
-    }
+    console.error(error);
   }
 };
