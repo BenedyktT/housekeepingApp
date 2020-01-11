@@ -1,4 +1,4 @@
-import { GET_ROOM_SETUP, SET_CLEAN, GET_CLEAN_ROOMS } from "./types";
+import { GET_ROOM_SETUP, GET_CLEAN_ROOMS } from "./types";
 import axios from "axios";
 import moment from "moment";
 import { setAlert } from "./alerts";
@@ -55,7 +55,7 @@ export const setClean = number => async dispatch => {
     dispatch(setAlert(`Room ${number} is cleaned`, "success"));
   } catch (error) {
     const errors = error.response.data.errors;
-    if (errors.length) {
+    if (errors && errors.length) {
       errors.forEach(e => dispatch(setAlert(e.msg, "danger")));
     }
   }
