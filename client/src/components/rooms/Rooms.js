@@ -13,8 +13,7 @@ const Rooms = ({
   setReportDate,
   isNavbarOpen,
   setClean,
-  getCleanRooms,
-  cleanRooms
+  getCleanRooms
 }) => {
   const initLoadRooms = useCallback(
     report => {
@@ -40,7 +39,6 @@ const Rooms = ({
   const render = () => {
     return rooms.map(
       ({ number, cleanStatus, vacancy, roomStatus, roomNote, cleanedBy }) => {
-        console.log(cleanedBy);
         return (
           <div
             key={number}
@@ -60,7 +58,9 @@ const Rooms = ({
           >
             <div className="room__col--left">
               {cleanedBy ? (
-                <p>{cleanedBy}</p>
+                <p className="text-small">
+                  Cleaned by: {cleanedBy.toUpperCase()}
+                </p>
               ) : (
                 <button
                   onClick={e => {

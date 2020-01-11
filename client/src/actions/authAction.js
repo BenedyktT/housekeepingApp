@@ -12,7 +12,7 @@ export const loginUser = (name, password) => async dispatch => {
     });
   } catch (error) {
     const errors = error.response.data.errors;
-    if (errors.length) {
+    if (errors && errors.length) {
       errors.forEach(e => dispatch(setAlert(e.msg, "danger")));
     }
 
@@ -32,7 +32,7 @@ export const loadUser = () => async dispatch => {
     });
   } catch (error) {
     const errors = error.response.data.errors;
-    if (errors.length) {
+    if (errors && errors.length) {
       errors.forEach(e => dispatch(setAlert(e.msg, "danger")));
     }
   }

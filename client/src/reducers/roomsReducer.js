@@ -1,4 +1,4 @@
-import { GET_ROOM_SETUP, SET_CLEAN, GET_CLEAN_ROOMS } from "../actions/types";
+import { GET_ROOM_SETUP, GET_CLEAN_ROOMS } from "../actions/types";
 
 const initialState = {
   roomsReport: []
@@ -132,7 +132,7 @@ export default (state = initialState, action) => {
             if (el.roomNote) {
               return el.number === number;
             } else {
-              return;
+              return null;
             }
           }),
           room
@@ -142,15 +142,16 @@ export default (state = initialState, action) => {
       return { ...state, roomsReport };
 
     case GET_CLEAN_ROOMS:
-      state.roomsReport.filter(e => {
+      const newState = state.roomsReport.filter(e => {
         return payload.map(cleanRooms => {
-          if (cleanRooms.number !== parseInt(e.number)) return;
+          if (cleanRooms.number !== parseInt(e.number)) return null;
           e.cleanStatus = "Clean";
           e.cleanedBy = cleanRooms.username;
+          return null;
         });
       });
 
-      return { ...state };
+      return { ...state, newState };
 
     default:
       return state;
