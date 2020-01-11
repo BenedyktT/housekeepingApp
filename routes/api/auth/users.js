@@ -85,7 +85,7 @@ router.post(
           .json({ errors: [{ msg: "Invalid Credentials" }] });
       }
       const payload = { id: user.id, name: user.name };
-      jwt.sign(payload, secret, { expiresIn: 3600 }, function(err, token) {
+      jwt.sign(payload, secret, { expiresIn: 13600 }, function(err, token) {
         if (err) throw err;
         return res.json({ token });
       });

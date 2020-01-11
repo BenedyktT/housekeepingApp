@@ -1,19 +1,30 @@
 import React, { useEffect, useCallback } from "react";
 import { connect } from "react-redux";
-import { loadRooms, setClean } from "../../actions/roomsActions";
+import { loadRooms, setClean, getCleanRooms } from "../../actions/roomsActions";
 import visibleRooms from "../../selectors/visibleRooms";
 import classnames from "classnames";
 import Loader from "react-loader-spinner";
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import disableScroll from "disable-scroll";
 
-const Rooms = ({ rooms, loadRooms, setReportDate, isNavbarOpen, setClean }) => {
+const Rooms = ({
+  rooms,
+  loadRooms,
+  setReportDate,
+  isNavbarOpen,
+  setClean,
+  getCleanRooms,
+  cleanRooms
+}) => {
   const initLoadRooms = useCallback(
     report => {
       loadRooms(report);
     },
     [loadRooms]
   );
+  useEffect(() => {
+    getCleanRooms();
+  }, []);
   useEffect(() => {
     if (isNavbarOpen) {
       disableScroll.on();
@@ -99,8 +110,9 @@ const Rooms = ({ rooms, loadRooms, setReportDate, isNavbarOpen, setClean }) => {
 export default connect(
   state => ({
     rooms: visibleRooms(state.roomReducer.roomsReport, state.filterReducer),
+    cleanRooms: state.roomReducer.cleanRooms,
     setReportDate: state.filterReducer.getCurrentCalendarValue,
     isNavbarOpen: state.layoutReducer.isNavbarOpen
   }),
-  { loadRooms, setClean }
+  { loadRooms, setClean, getCleanRooms }
 )(Rooms);
