@@ -107,25 +107,4 @@ router.get("/", auth, async (req, res) => {
   }
 });
 
-router.post("/test", auth, async (req, res) => {
-  const { number } = req.body;
-  const { user } = req;
-  try {
-    const room = new Room({
-      number,
-      user
-    });
-
-    await room.save();
-    res.json(room);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json("internal server error");
-  }
-});
-
-router.get("/test", auth, async (req, res) => {
-  const room = await Room.find().populate("User");
-  res.json(room);
-});
 module.exports = router;

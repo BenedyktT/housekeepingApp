@@ -4,7 +4,9 @@ const axios = require("axios");
 const otplib = require("otplib");
 const atob = require("atob");
 const secret = require("config").get("secret");
-var xmldoc = require("xmldoc");
+const auth = require("./auth/middleware");
+const Room = require("../../models/Room");
+const moment = require("moment");
 axios.defaults.baseURL = "https://api.roomercloud.net";
 axios.defaults.headers.common["Promoir-Roomer-Hotel-ApplicationId"] = "HKLAKI";
 axios.defaults.headers.common["Promoir-Roomer-Hotel-Identifier"] = "2b72a454";
@@ -29,6 +31,60 @@ router.get("/", async (req, res) => {
   );
 
   res.json(response.data);
+});
+
+//set room clean
+///roomstatus/setclean:101
+
+router.post("/cleanrooms/:number", auth, async (req, res) => {
+  const { number } = req.params;
+  const { user } = req;
+  try {
+    const today = moment().startOf("day");
+    const isAlreadyCleaned = await Room.findOne({
+      number,
+      createdAt: {
+        $gte: today.toDate(),
+        $lte: moment(today)
+          .endOf("day")
+          .toDate()
+      }
+    });
+    if (isAlreadyCleaned) {
+      return res
+        .status(402)
+        .json({ errors: [{ msg: "Room has been cleaned already" }] });
+    }
+    const room = new Room({
+      number,
+      user
+    });
+    await room.save();
+    const data = await Room.findById(room.id).populate({
+      path: "user",
+      model: "User",
+      select: "name"
+    });
+    res.json({ number: data.number, username: data.user.name });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json("internal server error");
+  }
+});
+
+//get all clean rooms
+router.get("/cleanrooms", auth, async (req, res) => {
+  try {
+    const room = await Room.find().populate({
+      path: "user",
+      model: "User",
+      select: "name"
+    });
+    res.json(room);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json("internal server error");
+  }
 });
 
 module.exports = router;
