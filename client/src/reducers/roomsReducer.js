@@ -1,4 +1,4 @@
-import { GET_ROOM_SETUP, SET_CLEAN } from "../actions/types";
+import { GET_ROOM_SETUP, SET_CLEAN, GET_CLEAN_ROOMS } from "../actions/types";
 
 const initialState = {
   roomsReport: [],
@@ -142,8 +142,8 @@ export default (state = initialState, action) => {
 
       return { ...state, roomsReport };
 
-    case SET_CLEAN:
-      return { ...state, cleanRooms: [...state.cleanRooms, payload] };
+    case GET_CLEAN_ROOMS:
+      return { ...state, cleanRooms: payload };
 
     default:
       return state;

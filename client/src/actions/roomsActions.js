@@ -1,4 +1,4 @@
-import { GET_ROOM_SETUP, SET_CLEAN } from "./types";
+import { GET_ROOM_SETUP, SET_CLEAN, GET_CLEAN_ROOMS } from "./types";
 import axios from "axios";
 import moment from "moment";
 import { setAlert } from "./alerts";
@@ -50,11 +50,27 @@ export const loadRooms = date => async dispatch => {
 
 export const setClean = number => async dispatch => {
   try {
-    const response = await axios.post(`roomstatus/cleanrooms/${number}`);
-    console.log(response.data);
+    await axios.post(`roomstatus/cleanrooms/${number}`);
+    dispatch(setAlert(`Room ${number} is cleaned`, "success"));
+  } catch (error) {
+    const errors = error.response.data.errors;
+    if (errors.length) {
+      errors.forEach(e => dispatch(setAlert(e.msg, "danger")));
+    }
+  }
+};
+
+export const getCleanRooms = () => async dispatch => {
+  try {
+    const response = await axios.get(`roomstatus/cleanrooms/`);
+
     dispatch({
-      type: SET_CLEAN,
-      payload: response.data
+      type: GET_CLEAN_ROOMS,
+      payload: response.data.map(({ createdAt, user, number }) => ({
+        createdAt,
+        username: user.name,
+        number
+      }))
     });
   } catch (error) {
     const errors = error.response.data.errors;
