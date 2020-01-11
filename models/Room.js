@@ -6,7 +6,7 @@ const roomSchema = new mongoose.Schema({
     required: true
   },
   status: { type: String },
-  createAt: { type: Date, default: Date.now },
+  createdAt: { type: Date, default: Date.now },
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "user"

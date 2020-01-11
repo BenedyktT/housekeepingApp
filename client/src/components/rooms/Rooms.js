@@ -1,13 +1,13 @@
 import React, { useEffect, useCallback } from "react";
 import { connect } from "react-redux";
-import { loadRooms } from "../../actions/roomsActions";
+import { loadRooms, setClean } from "../../actions/roomsActions";
 import visibleRooms from "../../selectors/visibleRooms";
 import classnames from "classnames";
 import Loader from "react-loader-spinner";
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import disableScroll from "disable-scroll";
 
-const Rooms = ({ rooms, loadRooms, setReportDate, isNavbarOpen }) => {
+const Rooms = ({ rooms, loadRooms, setReportDate, isNavbarOpen, setClean }) => {
   const initLoadRooms = useCallback(
     report => {
       loadRooms(report);
@@ -46,9 +46,14 @@ const Rooms = ({ rooms, loadRooms, setReportDate, isNavbarOpen }) => {
           >
             <div className="room__col--left">
               {vacancy !== "Out of Order" && (
-                <div className="set-clean">
+                <button
+                  onClick={e => {
+                    setClean(number);
+                  }}
+                  className="set-clean"
+                >
                   Set Clean <i className="fas fa-broom"></i>
-                </div>
+                </button>
               )}
               <h4 className="bold">Room {number}</h4>
             </div>
@@ -97,5 +102,5 @@ export default connect(
     setReportDate: state.filterReducer.getCurrentCalendarValue,
     isNavbarOpen: state.layoutReducer.isNavbarOpen
   }),
-  { loadRooms }
+  { loadRooms, setClean }
 )(Rooms);
