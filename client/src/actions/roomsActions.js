@@ -39,6 +39,8 @@ export const loadRooms = date => async dispatch => {
   const cleanStatus = await getRooms;
   const roomStatus = await getOccupancy(date);
   const roomNote = await getRoomnotes();
+  console.log(date.n);
+  dispatch(getCleanRooms(date.n || moment().format("YYYY-MM-DD")));
 
   dispatch({
     type: GET_ROOM_SETUP,
@@ -48,10 +50,11 @@ export const loadRooms = date => async dispatch => {
 
 //get and set clean statuses
 
-export const setClean = number => async dispatch => {
+export const setClean = (number, date) => async dispatch => {
   try {
     await axios.post(`roomstatus/cleanrooms/${number}`);
-    dispatch(getCleanRooms());
+
+    dispatch(getCleanRooms(date));
     dispatch(setAlert(`Room ${number} is cleaned`, "success"));
   } catch (error) {
     const errors = error.response.data.errors;
@@ -61,9 +64,9 @@ export const setClean = number => async dispatch => {
   }
 };
 
-export const getCleanRooms = () => async dispatch => {
+export const getCleanRooms = date => async dispatch => {
   try {
-    const response = await axios.get(`roomstatus/cleanrooms/`);
+    const response = await axios.get(`roomstatus/cleanrooms/${date}`);
 
     dispatch({
       type: GET_CLEAN_ROOMS,

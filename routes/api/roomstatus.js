@@ -39,6 +39,7 @@ router.get("/", async (req, res) => {
 router.post("/cleanrooms/:number", auth, async (req, res) => {
   const { number } = req.params;
   const { user } = req;
+
   try {
     const today = moment().startOf("day");
     const isAlreadyCleaned = await Room.findOne({
@@ -50,6 +51,7 @@ router.post("/cleanrooms/:number", auth, async (req, res) => {
           .toDate()
       }
     });
+
     if (isAlreadyCleaned) {
       return res
         .status(402)
@@ -65,7 +67,11 @@ router.post("/cleanrooms/:number", auth, async (req, res) => {
       model: "User",
       select: "name"
     });
-    res.json({ number: data.number, username: data.user.name });
+    res.json({
+      number: data.number,
+      username: data.user.name,
+      createdAt: data.createdAt
+    });
   } catch (error) {
     console.error(error);
     res.status(500).json("internal server error");
@@ -73,9 +79,17 @@ router.post("/cleanrooms/:number", auth, async (req, res) => {
 });
 
 //get all clean rooms
-router.get("/cleanrooms", auth, async (req, res) => {
+router.get("/cleanrooms/:date", auth, async (req, res) => {
   try {
-    const room = await Room.find().populate({
+    const date = moment(req.params.date).startOf("day");
+    const room = await Room.find({
+      createdAt: {
+        $gte: date.toDate(),
+        $lte: moment(date)
+          .endOf("day")
+          .toDate()
+      }
+    }).populate({
       path: "user",
       model: "User",
       select: "name"
