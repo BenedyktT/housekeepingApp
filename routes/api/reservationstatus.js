@@ -17,7 +17,7 @@ otplib.totp.options = {
 router.get("/:date", async (req, res, next) => {
   try {
     const token = otplib.totp.generate(atob(secret));
-    console.log(req.params.date);
+
     const response = await axios.get(
       `roomer/openAPI/REST/inventories/rooms?statusDate=${req.params.date}`,
       {

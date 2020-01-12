@@ -6,6 +6,7 @@ import classnames from "classnames";
 import Loader from "react-loader-spinner";
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import disableScroll from "disable-scroll";
+import moment from "moment";
 
 const Rooms = ({
   rooms,
@@ -15,15 +16,6 @@ const Rooms = ({
   setClean,
   getCleanRooms
 }) => {
-  const initLoadRooms = useCallback(
-    report => {
-      loadRooms(report);
-    },
-    [loadRooms]
-  );
-  useEffect(() => {
-    if (rooms.length) getCleanRooms();
-  }, [rooms.length]);
   useEffect(() => {
     if (isNavbarOpen) {
       disableScroll.on();
@@ -33,9 +25,9 @@ const Rooms = ({
   }, [isNavbarOpen]);
   useEffect(() => {
     if (!rooms.length) {
-      initLoadRooms(setReportDate);
+      loadRooms(setReportDate);
     }
-  }, [initLoadRooms]);
+  }, []);
   const render = () => {
     return rooms.map(
       ({ number, cleanStatus, vacancy, roomStatus, roomNote, cleanedBy }) => {
@@ -64,7 +56,10 @@ const Rooms = ({
               ) : (
                 <button
                   onClick={e => {
-                    setClean(number);
+                    setClean(
+                      number,
+                      setReportDate.n || moment().format("YYYY-MM-DD")
+                    );
                   }}
                   className="set-clean"
                 >
