@@ -2,7 +2,7 @@ const express = require("express");
 const User = require("../../../models/User");
 const Room = require("../../../models/Room");
 
-const secret = require("config").get("secretID");
+const secret = process.env.API_secretID;
 const router = express.Router();
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");

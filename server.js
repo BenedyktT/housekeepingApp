@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const connectDB = require("./config/config");
 const path = require("path");
+require("dotenv").config({ path: __dirname + "/.env" });
 
 connectDB();
 app.use(express.json({ extended: false }));
