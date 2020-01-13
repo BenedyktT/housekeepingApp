@@ -3,41 +3,14 @@ const router = express.Router();
 const axios = require("axios");
 const otplib = require("otplib");
 const atob = require("atob");
-<<<<<<< HEAD
-const secret = require("config").get("secret");
-var xmldoc = require("xmldoc");
-=======
 const secret = process.env.API_secret;
 const auth = require("./auth/middleware");
 const Room = require("../../models/Room");
 const moment = require("moment");
->>>>>>> test
 axios.defaults.baseURL = "https://api.roomercloud.net";
 axios.defaults.headers.common["Promoir-Roomer-Hotel-ApplicationId"] = "HKLAKI";
 axios.defaults.headers.common["Promoir-Roomer-Hotel-Identifier"] = "2b72a454";
 otplib.totp.options = {
-<<<<<<< HEAD
-  digits: 8,
-  algorithm: "sha256",
-  encoding: "hex"
-};
-
-router.get("/", async (req, res) => {
-  const token = otplib.totp.generate(atob(secret));
-  const response = await axios.post(
-    `roomer/openAPI/REST/estimates/booking`,
-    /* `roomer/openAPI/REST/bookings/roomassignments?roomNumber=${req.params.room_number}`, */
-    {
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/xml",
-        "Promoir-Roomer-Hotel-Secret": token
-      }
-    }
-  );
-
-  res.json(response.data);
-=======
 	digits: 8,
 	algorithm: "sha256",
 	encoding: "hex"
@@ -126,7 +99,6 @@ router.get("/cleanrooms/:date", auth, async (req, res) => {
 		console.error(error);
 		res.status(500).json("internal server error");
 	}
->>>>>>> test
 });
 
 module.exports = router;

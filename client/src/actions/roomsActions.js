@@ -1,13 +1,7 @@
-<<<<<<< HEAD
-import { GET_ROOM_SETUP } from "./types";
-import axios from "axios";
-import moment from "moment";
-=======
 import { GET_ROOM_SETUP, GET_CLEAN_ROOMS } from "./types";
 import axios from "axios";
 import moment from "moment";
 import { setAlert } from "./alerts";
->>>>>>> test
 
 const getRooms = (async () => {
 	try {
@@ -45,18 +39,13 @@ export const loadRooms = date => async dispatch => {
 	const cleanStatus = await getRooms;
 	const roomStatus = await getOccupancy(date);
 	const roomNote = await getRoomnotes();
-<<<<<<< HEAD
-=======
 	dispatch(getCleanRooms(date.n || moment().format("YYYY-MM-DD")));
->>>>>>> test
 
 	dispatch({
 		type: GET_ROOM_SETUP,
 		payload: { cleanStatus, roomStatus, roomNote }
 	});
 };
-<<<<<<< HEAD
-=======
 
 //get and set clean statuses
 
@@ -92,4 +81,3 @@ export const getCleanRooms = (
 		console.error(error);
 	}
 };
->>>>>>> test

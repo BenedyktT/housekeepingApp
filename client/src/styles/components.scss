@@ -123,18 +123,11 @@
   align-items: center;
 }
 .avatar__image {
-<<<<<<< HEAD
-  border-radius: 50%;
-  height: 50px;
-  width: 50px;
-  object-fit: cover;
-=======
   //round avatar
   border-radius: 50%;
   height: 50px;
   background:white;
   width: 50px;
->>>>>>> test
   display: block;
   overflow: hidden;
 }
@@ -175,8 +168,6 @@
   justify-content: center;
   align-items: center;
 }
-<<<<<<< HEAD
-=======
 .set-clean {
   margin-left: 2rem;
   margin-bottom: 0.3rem;
@@ -187,7 +178,6 @@
   padding: 0.1rem 0.5rem;
   cursor: pointer;
 }
->>>>>>> test
 .room__col--right {
   display: grid;
   grid-template-columns: repeat(4, 25%);
@@ -228,8 +218,5 @@
 .note {
   grid-area: n;
 }
-<<<<<<< HEAD
-=======
 
 //set room clean
->>>>>>> test

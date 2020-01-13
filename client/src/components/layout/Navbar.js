@@ -1,9 +1,5 @@
 import React, { Fragment } from "react";
-<<<<<<< HEAD
-import avatar from "../../img/ayo-ogunseinde-THIs-cpyebg-unsplash.jpg";
-=======
 import avatar from "../../img/hotel.svg";
->>>>>>> test
 import { connect } from "react-redux";
 import classnames from "classnames";
 import { toggleNavbar } from "../../actions/layoutAction";
