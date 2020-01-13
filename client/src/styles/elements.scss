@@ -195,6 +195,7 @@ h4 {
 }
 
 //alert
+<<<<<<< HEAD
 .alert-danger {
   border: 1px solid red;
   background: rgba($pink-b, 0.2);
@@ -202,4 +203,22 @@ h4 {
   margin-bottom: 1rem;
   color: black;
   text-align: center;
+=======
+.alert {
+  color: black;
+  text-align: center;
+  width: 100%;
+  margin: 1rem 0;
+  position: fixed;
+}
+.alert-danger {
+  border: 1px solid red;
+  color: red;
+  background: rgba($pink-b, 0.2);
+}
+.alert-success {
+  border: 1px solid green;
+  color: green;
+  background: rgba(green, 0.2);
+>>>>>>> test
 }

@@ -6,7 +6,12 @@
   "scripts": {
     "client": "npm start --prefix client",
     "server": "nodemon server --ignore './client/'",
+<<<<<<< HEAD
     "dev": "concurrently \"npm run server\" \"npm run client\""
+=======
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
+>>>>>>> test
   },
   "author": "Benedykt Tyminski",
   "license": "ISC",
@@ -17,10 +22,19 @@
     "classnames": "^2.2.6",
     "config": "^3.2.4",
     "disable-scroll": "^0.5.0",
+<<<<<<< HEAD
+=======
+    "dotenv": "^8.2.0",
+>>>>>>> test
     "express": "^4.17.1",
     "express-validator": "^6.3.1",
     "google-spreadsheet": "^2.0.8",
     "jsonwebtoken": "^8.5.1",
+<<<<<<< HEAD
+=======
+    "moment": "^2.24.0",
+    "mongodb-moment": "^1.0.2",
+>>>>>>> test
     "mongoose": "^5.8.3",
     "otplib": "^11.0.1",
     "passport": "^0.4.1",

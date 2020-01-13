@@ -1,6 +1,12 @@
 const express = require("express");
 const User = require("../../../models/User");
+<<<<<<< HEAD
 const secret = require("config").get("secretID");
+=======
+const Room = require("../../../models/Room");
+
+const secret = process.env.API_secretID;
+>>>>>>> test
 const router = express.Router();
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
@@ -9,6 +15,7 @@ const { check, validationResult } = require("express-validator");
 //register new user
 
 router.post(
+<<<<<<< HEAD
   "/register",
   [
     check("name", "Name is Required")
@@ -47,11 +54,54 @@ router.post(
       res.status(500).json("Internal Server Error");
     }
   }
+=======
+	"/register",
+	[
+		check("name", "Name is Required")
+			.not()
+			.isEmpty(),
+		check("password")
+			.not()
+			.isEmpty()
+	],
+	auth,
+	async (req, res) => {
+		const errors = validationResult(req);
+		if (!errors.isEmpty()) {
+			return res.status(400).json({ errors: errors.array() });
+		} else {
+			console.log(req.body);
+		}
+		const { name, email, password } = req.body;
+		let user = await User.findOne({ email });
+		let isUserExist = await User.findOne({ name });
+
+		try {
+			if (user || isUserExist) {
+				res.status(400).json({ errors: [{ msg: "User already exist" }] });
+			}
+
+			user = new User({
+				name,
+				email,
+				password
+			});
+			const salt = await bcrypt.genSalt(10);
+			user.password = await bcrypt.hash(password, salt);
+			await user.save();
+			res.json(user);
+		} catch (error) {
+			console.error(error);
+			res.status(500).json("Internal Server Error");
+		}
+	}
+>>>>>>> test
 );
 
 //login user
 
 router.post(
+<<<<<<< HEAD
   "/login",
   [
     check("name", "Name is Required")
@@ -102,6 +152,59 @@ router.get("/", auth, async (req, res) => {
     console.error(error.message);
     res.status(500).json("internal server error");
   }
+=======
+	"/login",
+	[
+		check("name", "Name is Required")
+			.not()
+			.isEmpty(),
+		check("password")
+			.not()
+			.isEmpty()
+	],
+	async (req, res) => {
+		const errors = validationResult(req);
+		if (!errors.isEmpty()) {
+			return res.status(400).json({ errors: errors.array() });
+		} else {
+			console.log(req.body);
+		}
+		const { name, password } = req.body;
+		try {
+			let user = await User.findOne({ name });
+			if (!user) {
+				return res
+					.status(400)
+					.json({ errors: [{ msg: "User does not exist" }] });
+			}
+			const isMatch = await bcrypt.compare(password, user.password);
+			if (!isMatch) {
+				return res
+					.status(400)
+					.json({ errors: [{ msg: "Invalid Credentials" }] });
+			}
+			const payload = { id: user.id, name: user.name };
+			jwt.sign(payload, secret, { expiresIn: 13600 }, function(err, token) {
+				if (err) throw err;
+				return res.json({ token });
+			});
+		} catch (error) {
+			console.error(error);
+			res.status(500).json("internal server error");
+		}
+	}
+);
+
+//get user info
+router.get("/", auth, async (req, res) => {
+	try {
+		const user = await User.findById(req.user).select("-password");
+		res.json(user);
+	} catch (error) {
+		console.error(error.message);
+		res.status(500).json("internal server error");
+	}
+>>>>>>> test
 });
 
 module.exports = router;

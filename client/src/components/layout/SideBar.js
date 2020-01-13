@@ -48,6 +48,18 @@ const SideBar = ({ isNavbarOpen, toggleNavbar, isAuthenticated, logout }) => {
 						</Link>
 					</li>
 					<li className="sidebar__link">
+<<<<<<< HEAD
+=======
+						<Link
+							onClick={() => setTimeout(() => toggleNavbar(false), 200)}
+							className="hover link-hover--pink text-white text-big"
+							to="/register"
+						>
+							Register
+						</Link>
+					</li>
+					<li className="sidebar__link">
+>>>>>>> test
 						{isAuthenticated ? (
 							<Link
 								className="hover link-hover--pink text-white text-big"
