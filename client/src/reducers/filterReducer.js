@@ -6,7 +6,7 @@ import {
 } from "../actions/types";
 
 const initialState = {
-	filterCleanRoomsMethod: SHOW_UNCLEAN,
+	filterCleanRoomsMethod: SHOW_ALL,
 	setVisibleHallway: "all",
 	getCurrentCalendarValue: {}
 };

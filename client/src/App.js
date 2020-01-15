@@ -21,9 +21,7 @@ if (localStorage.getItem("token")) {
 
 const App = () => {
 	useEffect(() => {
-		if (localStorage.getItem("token")) {
-			store.dispatch(loadUser());
-		}
+		store.dispatch(loadUser());
 	}, []);
 	return (
 		<Provider store={store}>

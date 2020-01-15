@@ -39,7 +39,7 @@ const FiltersBar = ({
 		<div className="container ">
 			<div className=" rounded shadow filter-bar">
 				<select
-					defaultValue="unclean"
+					defaultValue="all"
 					onChange={e => {
 						e.target.value === "all" ? showAll() : showUnclean();
 					}}

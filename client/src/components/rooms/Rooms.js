@@ -37,6 +37,7 @@ const Rooms = ({
 			);
 		}
 	};
+
 	useEffect(() => {
 		if (isNavbarOpen) {
 			disableScroll.on();
@@ -49,50 +50,59 @@ const Rooms = ({
 			loadRooms(setReportDate);
 		}
 	}, []);
+
 	const render = () => {
-		return rooms.map(
-			({ number, cleanStatus, vacancy, roomStatus, roomNote, cleanedBy }) => {
-				return (
-					<div
-						key={number}
-						className={classnames(
-							"room",
-							{
-								"gradient-blue":
-									vacancy === "Vacant" ||
-									vacancy === "Clean" ||
-									vacancy === "Not Clean" ||
-									vacancy == null
-							},
-							{ "gradient-pink": vacancy === "Occupied" },
-							{ "gradient-green": vacancy === "Stayover" },
-							{ "gradient-dark": vacancy === "Out of Order" }
-						)}
-					>
-						<div className="room__col--left">
-							{roomAction(cleanedBy, number)}
-							<h4 className="bold">Room {number}</h4>
-						</div>
-						<span className="hor-line"></span>
-						<div className="room__col--right">
-							<p className="occupancy small">{vacancy}</p>
-							<p className="reservation">{roomStatus}</p>
-							<p
-								className={
-									cleanStatus === "Clean"
-										? "success clean small"
-										: "danger clean small"
-								}
-							>
-								{cleanStatus}
-							</p>
-							{roomNote && <p className="note small">{roomNote}</p>}
-						</div>
+		return rooms.map(room => {
+			const {
+				number,
+				cleanStatus,
+				vacancy,
+				roomStatus,
+				roomNote,
+				cleanedBy
+			} = room;
+
+			return (
+				<div
+					key={number}
+					className={classnames(
+						"room",
+						{
+							"gradient-blue":
+								vacancy === "Vacant" ||
+								vacancy === "Clean" ||
+								vacancy === "Not Clean" ||
+								vacancy == null
+						},
+						{ "gradient-pink": vacancy === "Occupied" },
+						{ "gradient-green": vacancy === "Stayover" },
+						{ "gradient-dark": vacancy === "Out of Order" }
+					)}
+				>
+					<div className="room__col--left">
+						{roomAction(cleanedBy, number)}
+						<h4 className="bold">Room {number}</h4>
 					</div>
-				);
-			}
-		);
+					<span className="hor-line"></span>
+					<div className="room__col--right">
+						<p className="occupancy small">{vacancy}</p>
+						<p className="reservation">{roomStatus}</p>
+						<p
+							className={
+								cleanStatus === "Clean"
+									? "success clean small"
+									: "danger clean small"
+							}
+						>
+							{cleanStatus}
+						</p>
+						{roomNote && <p className="note small">{roomNote}</p>}
+					</div>
+				</div>
+			);
+		});
 	};
+
 	return (
 		<div className="container">
 			{rooms.length ? (
