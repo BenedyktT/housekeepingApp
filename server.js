@@ -10,7 +10,7 @@ app.use("/cleanstatus", require("./routes/api/cleanstatus"));
 app.use("/reservation", require("./routes/api/reservationstatus"));
 app.use("/roomstatus", require("./routes/api/roomstatus"));
 app.use("/roomsetup", require("./routes/api/roomsetup"));
-
+app.use("/availability", require("./routes/api/availability"));
 // Serve static assets in production
 if (process.env.NODE_ENV === "production") {
 	// Set static folder
