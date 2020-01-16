@@ -44,9 +44,9 @@ export const loadUser = () => async dispatch => {
 			payload: res.data
 		});
 	} catch (error) {
-		const errors = error.response.data.errors;
-		if (errors && errors.length) {
-			errors.forEach(e => dispatch(setAlert(e.msg, "danger")));
+		const errors = error.response;
+		if (errors.data.errors && errors.length) {
+			errors.data.errors.forEach(e => dispatch(setAlert(e.msg, "danger")));
 		}
 	}
 };

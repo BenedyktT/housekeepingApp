@@ -1,6 +1,5 @@
 const express = require("express");
 const User = require("../../../models/User");
-const Room = require("../../../models/Room");
 
 const secret = process.env.API_secretID;
 const router = express.Router();

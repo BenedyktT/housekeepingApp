@@ -3,7 +3,6 @@ const router = express.Router();
 const GoogleSpreadsheet = require("google-spreadsheet");
 
 const creds = JSON.stringify(require("../../client_secret.js"));
-//https://docs.google.com/spreadsheets/d/1VNSbty91bi83frVi3GQlmgnxiCLDKmAxA8ys3AVZ-Oc/edit?usp=sharing
 
 router.get("/", async (req, res) => {
 	const doc = new GoogleSpreadsheet(

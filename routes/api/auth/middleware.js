@@ -7,13 +7,15 @@ module.exports = (req, res, next) => {
 	if (token) {
 		jwt.verify(token, process.env.API_secretID, (err, decoded) => {
 			if (err) {
-				res.status(403).json({ errors: [{ msg: "Token is not valid" }] });
+				res.status(403);
+				return;
 			} else {
 				req.user = decoded.id;
 				next();
 			}
 		});
 	} else {
-		res.status(403).json({ errors: [{ msg: "Token does not exist" }] });
+		res.status(403);
+		return;
 	}
 };

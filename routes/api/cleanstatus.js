@@ -5,7 +5,6 @@ var xmldoc = require("xmldoc");
 const otplib = require("otplib");
 const atob = require("atob");
 const secret = process.env.API_secret;
-const auth = require("./auth/middleware");
 
 axios.defaults.baseURL = "https://api.roomercloud.net";
 axios.defaults.headers.common["Promoir-Roomer-Hotel-ApplicationId"] = "HKLAKI";
