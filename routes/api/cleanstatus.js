@@ -36,4 +36,23 @@ router.get("/", async (req, res, next) => {
   }
 });
 
+router.get("/test", async (req, res) => {
+  try {
+    //https://api.roomercloud.net/services
+    const token = otplib.totp.generate(atob(secret));
+    const response = await axios.get(
+      "/services/bookingapi/reservations?stayFromDate=2020-01-17&stayToDate=2020-01-18&includeOutOfOrder=false&includeInvoices=false&modifiedSince=2020-01-10T11:28:32",
+      {
+        headers: {
+          Accept: "application/json",
+          "Promoir-Roomer-Hotel-Secret": token
+        }
+      }
+    );
+    res.json(response.data);
+  } catch (error) {
+    console.error(error.response);
+    res.status(500).json(error);
+  }
+});
 module.exports = router;
