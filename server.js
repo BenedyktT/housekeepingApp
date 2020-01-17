@@ -1,24 +1,24 @@
 const express = require("express");
 const app = express();
 const connectDB = require("./config/config");
-const path = require("path");
-require("dotenv").config({ path: __dirname + "/.env" });
+require("dotenv").config();
 
 connectDB();
 app.use(express.json({ extended: false }));
 app.use("/user", require("./routes/api/auth/users"));
-
 app.use("/cleanstatus", require("./routes/api/cleanstatus"));
 app.use("/reservation", require("./routes/api/reservationstatus"));
 app.use("/roomstatus", require("./routes/api/roomstatus"));
 app.use("/roomsetup", require("./routes/api/roomsetup"));
-
-//serve stati assets in prod
+app.use("/availability", require("./routes/api/availability"));
+// Serve static assets in production
 if (process.env.NODE_ENV === "production") {
-	app.use(express.static("client/build"));
-	app.get("*", (req, res) => {
-		res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
-	});
+  // Set static folder
+  app.use(express.static("client/build"));
+
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+  });
 }
 const PORT = process.env.PORT || 5000;
 

@@ -7,7 +7,8 @@
     "client": "npm start --prefix client",
     "server": "nodemon server --ignore './client/'",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client",
+    "postbuild": "cd client/public && gzip *.js && gzip *.css"
   },
   "author": "Benedykt Tyminski",
   "license": "ISC",
@@ -27,17 +28,11 @@
     "mongodb-moment": "^1.0.2",
     "mongoose": "^5.8.3",
     "otplib": "^11.0.1",
-    "passport": "^0.4.1",
-    "passport-google-oauth": "^2.0.0",
-    "passport-google-oauth20": "^2.0.0",
     "request": "^2.88.0",
-    "xml-js": "^1.6.11",
-    "xml2js": "^0.4.22",
     "xmldoc": "^1.1.2"
   },
   "devDependencies": {
     "concurrently": "^5.0.0",
-    "lodash": "^4.17.15",
     "nodemon": "^1.19.4"
   }
 }
