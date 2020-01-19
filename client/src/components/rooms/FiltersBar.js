@@ -9,6 +9,8 @@ import {
 } from "../../actions/filterAction";
 import { loadRooms } from "../../actions/roomsActions";
 import Calendar from "react-calendar";
+import left from "../../img/left.svg";
+import right from "../../img/right.svg";
 
 const FiltersBar = ({
   showAll,
@@ -66,6 +68,7 @@ const FiltersBar = ({
         </select>
         <div className="to-right mr-1 sm-text-1">
           <button
+            className="no-border"
             onClick={() => {
               setCalendarValue(
                 moment(calendarValue)
@@ -74,7 +77,11 @@ const FiltersBar = ({
               );
             }}
           >
-            <i className="cal-controls sm-text-05 fas fa-chevron-left"></i>
+            <img
+              src={left}
+              alt="previous"
+              className="cal-controls sm-text-05 "
+            />
           </button>
 
           <button
@@ -84,6 +91,7 @@ const FiltersBar = ({
             {moment(calendarValue).format("DD MMM")}
           </button>
           <button
+            className="no-border"
             onClick={() => {
               setCalendarValue(
                 moment(calendarValue)
@@ -92,7 +100,7 @@ const FiltersBar = ({
               );
             }}
           >
-            <i className="cal-controls sm-text-05 fas fa-chevron-right"></i>
+            <img src={right} alt="next" className="cal-controls sm-text-05 " />{" "}
           </button>
         </div>
       </div>

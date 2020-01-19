@@ -132,6 +132,25 @@
   overflow: hidden;
 }
 
+///////////
+.flex-right {
+  flex-basis: 25%;
+  display: flex;
+  justify-content: space-between;
+}
+.reload {
+  svg {
+    width: 25px;
+    height: 25px;
+    display: inline-block;
+    fill: $pink-b;
+    transition: transform 800ms ease-in-out;
+  }
+}
+svg.active {
+  transform: rotate(720deg);
+}
+
 //filter component
 //////////////////////////////////////////////////////////////
 
@@ -144,6 +163,9 @@
 //calendar
 .cal-controls {
   transition: transform 350ms ease-in-out;
+  display: inline-block;
+  width: 15px;
+  height: 15px;
 }
 .cal-controls:hover,
 .cal-controls:focus {
