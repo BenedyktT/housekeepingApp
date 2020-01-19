@@ -7,22 +7,23 @@ import Loader from "react-loader-spinner";
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import disableScroll from "disable-scroll";
 import moment from "moment";
+import Vacuum from "../../img/vacuum-cleaner.svg";
 
-const Rooms = ({
-  rooms,
-  loadRooms,
-  setReportDate,
-  isNavbarOpen,
-  setClean,
-  getCleanRooms
-}) => {
-  const roomAction = (cleanedBy, number) => {
+const Rooms = ({ rooms, loadRooms, setReportDate, isNavbarOpen, setClean }) => {
+  const roomAction = (cleanedBy, number, cleanStatus) => {
     const isSame = moment(setReportDate.n).isSame(moment(), "day");
     if (cleanedBy) {
       return (
-        <p className="text-small">Cleaned by: {cleanedBy.toUpperCase()}</p>
+        <p className="text-small">
+          Ready -{" "}
+          <span className="pink">
+            {cleanedBy.charAt(0).toUpperCase() + cleanedBy.substring(1)}
+          </span>
+        </p>
       );
     } else if (!isSame) {
+      return null;
+    } else if (cleanStatus === "Clean") {
       return null;
     } else {
       return (
@@ -32,7 +33,7 @@ const Rooms = ({
           }}
           className="set-clean"
         >
-          Set Clean <i className="fas fa-broom"></i>
+          Clean <img src={Vacuum} height="20px" width="20px" alt="setClean" />
         </button>
       );
     }
@@ -79,18 +80,16 @@ const Rooms = ({
           )}
         >
           <div className="room__col--left">
-            {roomAction(cleanedBy, number)}
+            {roomAction(cleanedBy, number, cleanStatus)}
             <h4 className="bold">Room {number}</h4>
           </div>
           <span className="hor-line"></span>
           <div className="room__col--right">
-            <p className="occupancy small">{vacancy}</p>
+            <p className="occupancy ">{vacancy}</p>
             <p className="reservation">{roomStatus}</p>
             <p
               className={
-                cleanStatus === "Clean"
-                  ? "success clean small"
-                  : "danger clean small"
+                cleanStatus === "Clean" ? "success clean" : "danger clean"
               }
             >
               {cleanStatus}

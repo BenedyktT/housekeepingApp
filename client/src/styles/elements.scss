@@ -91,6 +91,10 @@ h4 {
 .white {
   color: rgb(235, 232, 232);
 }
+//text pink
+.pink {
+  color: lighten($pink-b, 40%);
+}
 //text small
 .small {
   font-size: 0.8rem;

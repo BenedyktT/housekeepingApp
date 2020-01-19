@@ -126,7 +126,7 @@
   //round avatar
   border-radius: 50%;
   height: 50px;
-  background:white;
+  background: white;
   width: 50px;
   display: block;
   overflow: hidden;
@@ -176,7 +176,11 @@
   box-shadow: 1px 1px 3px darken($blue-primary, 20%);
   border-radius: 5px;
   padding: 0.1rem 0.5rem;
+  min-width: 60px;
   cursor: pointer;
+  img {
+    display: inline-block;
+  }
 }
 .room__col--right {
   display: grid;
@@ -213,6 +217,7 @@
 }
 .clean {
   grid-area: c;
+  margin-top: 0.5rem;
 }
 
 .note {

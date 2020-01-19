@@ -5,6 +5,7 @@ var xmldoc = require("xmldoc");
 const otplib = require("otplib");
 const atob = require("atob");
 const secret = process.env.API_secret;
+const moment = require("moment");
 
 axios.defaults.baseURL = "https://api.roomercloud.net";
 axios.defaults.headers.common["Promoir-Roomer-Hotel-ApplicationId"] = "HKLAKI";
@@ -41,7 +42,7 @@ router.get("/test", async (req, res) => {
     //https://api.roomercloud.net/services
     const token = otplib.totp.generate(atob(secret));
     const response = await axios.get(
-      "/services/bookingapi/reservations?stayFromDate=2020-01-17&stayToDate=2020-01-18&includeOutOfOrder=false&includeInvoices=false&modifiedSince=2020-01-10T11:28:32",
+      "/services/bookingapi/reservations?stayFromDate=2020-01-01&stayToDate=2020-01-02&includeOutOfOrder=false&includeInvoices=false&modifiedSince=2020-01-17T00:00:32",
       {
         headers: {
           Accept: "application/json",
@@ -49,7 +50,27 @@ router.get("/test", async (req, res) => {
         }
       }
     );
-    res.json(response.data);
+    const test = response.data.reservations.filter(e => {
+      return {
+        notes: e.reservationNotes,
+        rooms: e.rooms
+          .filter(room => {
+            const dateArrival = moment(room.dateArrival).isSame(
+              moment(),
+              "day"
+            );
+            return room.status !== "Cancelled" && dateArrival;
+          })
+          .map(x => ({
+            status: x.status,
+            note: x.roomNotes,
+            pax: x.adults,
+            arrival: x.dateArrival,
+            departure: x.dateDeparture
+          }))
+      };
+    });
+    res.json(test);
   } catch (error) {
     console.error(error.response);
     res.status(500).json(error);
