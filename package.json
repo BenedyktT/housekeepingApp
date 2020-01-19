@@ -28,6 +28,7 @@
     "mongodb-moment": "^1.0.2",
     "mongoose": "^5.8.3",
     "otplib": "^11.0.1",
+    "react-pwa": "0.0.1",
     "request": "^2.88.0",
     "xmldoc": "^1.1.2"
   },
