@@ -4,11 +4,13 @@ import filterReducer from "./filterReducer";
 import authReducer from "./authReducer";
 import layoutReducer from "./layoutReducer";
 import alertReducer from "./alertReducer";
+import settingsReducer from "./settingsReducer";
 
 export default combineReducers({
-  roomReducer,
-  filterReducer,
-  authReducer,
-  layoutReducer,
-  alertReducer
+	roomReducer,
+	filterReducer,
+	authReducer,
+	layoutReducer,
+	alertReducer,
+	settingsReducer
 });
