@@ -5,14 +5,15 @@ import classnames from "classnames";
 import { toggleNavbar } from "../../actions/layoutAction";
 import { ReactComponent as Reload } from "../../img/reload.svg";
 import { loadRooms } from "../../actions/roomsActions";
-
+import { Link } from "react-router-dom";
 const Navbar = ({
   isAuthenticated,
   user,
   toggleNavbar,
   isNavbarOpen,
   loadRooms,
-  getReportDate
+  getReportDate,
+  loading
 }) => {
   const [isBtnClicked, setBtnClicked] = useState(false);
   return (
@@ -20,7 +21,10 @@ const Navbar = ({
       <div className="avatar">
         {isAuthenticated ? (
           <Fragment>
-            <img src={avatar} alt="avatar" className="avatar__image" />
+            <Link to="/">
+              <img src={avatar} alt="avatar" className="avatar__image" />
+            </Link>
+
             <h3 className="avatar__greet text-white ml-1 sm-text-1">
               Hi,{" "}
               {user
@@ -30,9 +34,11 @@ const Navbar = ({
           </Fragment>
         ) : (
           <Fragment>
-            <h3 className="avatar__greet text-white ml-1 sm-text-1">
-              Housekeeping App
-            </h3>
+            <Link to="/">
+              <h3 className="avatar__greet text-white ml-1 sm-text-1">
+                Housekeeping App
+              </h3>
+            </Link>
           </Fragment>
         )}
       </div>
@@ -44,7 +50,7 @@ const Navbar = ({
             loadRooms(getReportDate);
           }}
         >
-          <Reload className={classnames({ active: isBtnClicked })} />
+          <Reload className={classnames({ active: loading })} />
         </button>
         <label className={classnames("hamburger-container")}>
           <div
@@ -72,7 +78,8 @@ export default connect(
     isAuthenticated: state.authReducer.isAuthenticated,
     user: state.authReducer.user,
     isNavbarOpen: state.layoutReducer.isNavbarOpen,
-    getReportDate: state.filterReducer.getCurrentCalendarValue
+    getReportDate: state.filterReducer.getCurrentCalendarValue,
+    loading: state.roomReducer.loading
   }),
   { toggleNavbar, loadRooms }
 )(Navbar);

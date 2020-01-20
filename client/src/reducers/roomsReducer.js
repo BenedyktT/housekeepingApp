@@ -1,12 +1,15 @@
-import { GET_ROOM_SETUP, GET_CLEAN_ROOMS } from "../actions/types";
+import { GET_ROOM_SETUP, GET_CLEAN_ROOMS, LOAD_ROOMS } from "../actions/types";
 
 const initialState = {
-  roomsReport: []
+  roomsReport: [],
+  loading: null
 };
 
 export default (state = initialState, action) => {
   const { type, payload } = action;
   switch (type) {
+    case LOAD_ROOMS:
+      return { ...state, loading: true };
     case GET_ROOM_SETUP:
       const { cleanStatus, roomNote } = payload;
       const { currentRooms, nextRooms } = payload.roomStatus;
@@ -139,7 +142,7 @@ export default (state = initialState, action) => {
         );
       });
 
-      return { ...state, roomsReport };
+      return { ...state, roomsReport, loading: false };
 
     case GET_CLEAN_ROOMS:
       const newState = state.roomsReport.filter(e => {
@@ -151,7 +154,7 @@ export default (state = initialState, action) => {
         });
       });
 
-      return { ...state, newState };
+      return { ...state, roomsReport: [...newState], loading: false };
 
     default:
       return state;

@@ -148,24 +148,31 @@
   }
 }
 svg.active {
-  transform: rotate(720deg);
+  animation: spinner 550ms linear 0s infinite forwards;
 }
-
+@keyframes spinner {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
 //filter component
 //////////////////////////////////////////////////////////////
 
 .filter-bar {
   padding: $padding-xsmall;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
 }
 //calendar
 .cal-controls {
   transition: transform 350ms ease-in-out;
   display: inline-block;
-  width: 15px;
-  height: 15px;
+  width: 12px;
+  height: 12px;
 }
 .cal-controls:hover,
 .cal-controls:focus {
@@ -210,8 +217,9 @@ svg.active {
   grid-template-rows: repeat(3, 25%) 20%;
   justify-items: center;
   align-items: center;
+  overflow: hidden;
   grid-template-areas:
-    ". . o o "
+    ". o o o "
     "r r r r"
     "c c c c"
     "n n n n";
@@ -222,6 +230,7 @@ svg.active {
   border-radius: 20px;
   width: 100%;
   text-align: center;
+  word-wrap: break-word;
   padding: 0.1rem 0;
   align-self: center;
 }
