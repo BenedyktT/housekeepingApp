@@ -22,6 +22,7 @@ const Rooms = ({
 		clean: "Czysty",
 		room: "Pokoj",
 		vacant: "Wolne",
+		occupied: "Zajety",
 		not_clean: "Nieczysty",
 		stayover: "Stayover",
 		out_of_order: "Zepsuty",
@@ -30,6 +31,7 @@ const Rooms = ({
 	};
 	const en = {
 		ready: "Ready",
+		occupied: "Occupied",
 		clean: "Clean",
 		room: "Room",
 		vacant: "vacant",
