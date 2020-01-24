@@ -13,7 +13,7 @@ const Landing = ({ loginUser, isAuthenticated, loadUser }) => {
 			console.log("dispatch error");
 			return;
 		}
-		loginUser(name, password);
+		loginUser(name.toLowerCase(), password);
 	};
 	const onChange = e => {
 		setInputValue({ ...inputValue, [e.target.name]: e.target.value });

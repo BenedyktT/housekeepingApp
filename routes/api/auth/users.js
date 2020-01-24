@@ -71,7 +71,8 @@ router.post(
 		} else {
 			console.log(req.body);
 		}
-		const { name, password } = req.body;
+		let { name, password } = req.body;
+		name.toLowerCase();
 		try {
 			let user = await User.findOne({ name });
 			if (!user) {
