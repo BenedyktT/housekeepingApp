@@ -6,8 +6,8 @@ import {
 } from "../actions/types";
 
 const initialState = {
-  filterCleanRoomsMethod: SHOW_ALL,
-  setVisibleHallway: "all",
+  filterCleanRoomsMethod: localStorage.getItem("showClean") || SHOW_ALL,
+  setVisibleHallway: localStorage.getItem("visibleHallway") || "all",
   getCurrentCalendarValue: {}
 };
 
@@ -15,10 +15,13 @@ export default (state = initialState, action) => {
   const { type, payload } = action;
   switch (type) {
     case SHOW_UNCLEAN:
+      localStorage.setItem("showClean", SHOW_UNCLEAN);
       return { ...state, filterCleanRoomsMethod: SHOW_UNCLEAN };
     case SHOW_ALL:
+      localStorage.setItem("showClean", SHOW_ALL);
       return { ...state, filterCleanRoomsMethod: SHOW_ALL };
     case SELECT_HALLWAY:
+      localStorage.setItem("visibleHallway", payload);
       return { ...state, setVisibleHallway: payload };
     case GET_CURRENT_CALENDAR_VALUE:
       return {
