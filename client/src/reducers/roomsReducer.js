@@ -13,21 +13,24 @@ export default (state = initialState, action) => {
     case GET_ROOM_SETUP:
       const { cleanStatus, roomNote } = payload;
       const { currentRooms, nextRooms } = payload.roomStatus;
-
       //merge object from two requests (same key)
       const currentRoomSetup = currentRooms
+        .filter((e, index, array) => {
+          const prevItem = array[index - 1];
+          const nextItem = array[index + 1];
+          if (
+            (nextItem && e.Room === nextItem.Room) ||
+            (prevItem && e.Room === prevItem.Room)
+          ) {
+            return e.Room !== "VEIT" && e.roomState !== "N_A";
+          } else return e.Room !== "VEIT";
+        })
         .map(occupancyRoom => {
           const { Room } = occupancyRoom;
           return Object.assign(
             ...cleanStatus.filter(el => el.Room === Room),
             occupancyRoom
           );
-        })
-        .filter((e, index, array) => {
-          //If they are some duplicates - remove them - leaving the next index only
-          if (array[index - 1]) {
-            return e.Room !== array[index - 1].Room;
-          } else return true;
         });
 
       //merge previous object with next day roomstatus report object

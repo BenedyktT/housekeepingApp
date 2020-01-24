@@ -43,7 +43,6 @@ export const loadRooms = date => async dispatch => {
   const roomStatus = await getOccupancy(date);
   const roomNote = await getRoomnotes();
   dispatch(getCleanRooms(date.n || moment().format("YYYY-MM-DD")));
-
   dispatch({
     type: GET_ROOM_SETUP,
     payload: { cleanStatus, roomStatus, roomNote }
