@@ -7,7 +7,7 @@ import {
 
 const initialState = {
   filterCleanRoomsMethod: localStorage.getItem("showClean") || SHOW_ALL,
-  setVisibleHallway: localStorage.getItem("visibleHallway") || "all",
+  setVisibleHallway: localStorage.getItem("visibleHallway") || "SHOW_ALL",
   getCurrentCalendarValue: {}
 };
 

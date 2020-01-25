@@ -79,7 +79,7 @@ const FiltersBar = ({
         <select
           defaultValue={filterCleanRoomsMethod}
           onChange={e => {
-            e.target.value === "all" ? showAll() : showUnclean();
+            e.target.value === "SHOW_ALL" ? showAll() : showUnclean();
           }}
           className="sm-text-1"
           name="filterOptions"
