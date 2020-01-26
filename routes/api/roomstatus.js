@@ -18,19 +18,22 @@ otplib.totp.options = {
 
 router.get("/", async (req, res) => {
 	const token = otplib.totp.generate(atob(secret));
-	const response = await axios.post(
-		`roomer/openAPI/REST/estimates/booking`,
-		/* `roomer/openAPI/REST/bookings/roomassignments?roomNumber=${req.params.room_number}`, */
-		{
-			headers: {
-				Accept: "application/json",
-				"Content-Type": "application/xml",
-				"Promoir-Roomer-Hotel-Secret": token
+	try {
+		const response = await axios.post(
+			`roomer/openAPI/REST/bookings/roomassignments?roomNumber=116`,
+			{
+				headers: {
+					Accept: "application/json",
+					"Content-Type": "application/xml",
+					"Promoir-Roomer-Hotel-Secret": token
+				}
 			}
-		}
-	);
+		);
 
-	res.json(response.data);
+		res.json(response.data);
+	} catch (error) {
+		res.status(501).json("error");
+	}
 });
 
 //set room clean
