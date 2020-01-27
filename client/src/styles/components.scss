@@ -256,3 +256,15 @@ svg.active {
 }
 
 //set room clean
+
+
+
+//overview bar
+
+.overview{
+  display:flex;
+  justify-content: space-evenly;
+  box-shadow: 0.5px 0.5px 10px rgba(128, 128, 128, 0.315);
+  border-radius: 15px;
+}
+

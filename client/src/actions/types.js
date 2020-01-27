@@ -16,3 +16,4 @@ export const GET_CLEAN_ROOMS = "GET_CLEAN_ROOMS";
 export const REGISTER_USER = "REGISTER_USER";
 export const SET_LANGUAGE = "SET_LANGUAGE";
 export const LOAD_ROOMS = "LOAD_ROOMS";
+export const GET_STATISTIC = "GET_STATISTIC";
