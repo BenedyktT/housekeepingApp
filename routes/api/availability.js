@@ -20,6 +20,7 @@ router.get("/:arrival/:departure", async (req, res) => {
 			.map(child => {
 				return {
 					room: child.attr.availabilityBaseCode,
+					available: child.children[1].children[0].attr.availability,
 					occupancy:
 						(child.attr.availabilityBaseCode === "DBL-S" &&
 							39 - child.children[1].children[0].attr.availability) ||
