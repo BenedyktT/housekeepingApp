@@ -33,7 +33,7 @@ $margin-x: 0 1.2rem;
 $margin-small-x: 0 0.3rem;
 $margin-y: 1.2rem 0;
 $margin-small-y: 0.3 0;
-
+$margin-big-x: 5rem 0;
 //fonts
 @import url("https://fonts.googleapis.com/css?family=Montserrat:500|Roboto&display=swap");
 
@@ -58,6 +58,9 @@ $font-sub: "Roboto", Arial, Helvetica, cursive, sans-serif;
 }
 .margin-small-x {
   margin: $margin-small-x;
+}
+.margin-big-x {
+  margin: $margin-big-x
 }
 .margin-y {
   margin: $margin-y;

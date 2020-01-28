@@ -25,7 +25,7 @@ const FiltersBar = ({
 	const pl = {
 		show_all: "Pokaz wszystkie",
 		show_unclean: "Pokaz brudne",
-		all: "Wszystkie pietra",
+		all: "Wszystkie",
 		100: "100",
 		200: "201-212",
 		213: "213-224",
@@ -101,7 +101,7 @@ const FiltersBar = ({
 					<option value="300">{t("300")}</option>
 					<option value="313">{t("313")}</option>
 				</select>
-				<div className="to-right mr-1 sm-text-1">
+				<div className="to-right sm-text-1">
 					<button
 						className="no-border"
 						onClick={() => {
