@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const connectDB = require("./config/config");
 require("dotenv").config();
+const wakeUpDyno = require("./wakeUpDyno");
 
 connectDB();
 app.use(express.json({ extended: false }));
@@ -13,12 +14,15 @@ app.use("/roomsetup", require("./routes/api/roomsetup"));
 app.use("/availability", require("./routes/api/availability"));
 // Serve static assets in production
 if (process.env.NODE_ENV === "production") {
-	// Set static folder
-	app.use(express.static("client/build"));
-	app.get("/*", function(req, res) {
-		res.sendFile(path.join(__dirname, "build", "index.html"));
-	});
+  // Set static folder
+  app.use(express.static("client/build"));
+  app.get("/*", function(req, res) {
+    res.sendFile(path.join(__dirname, "build", "index.html"));
+  });
 }
 const PORT = process.env.PORT || 5000;
 
-app.listen(PORT, () => console.log(`server start on port ${PORT}`));
+app.listen(PORT, () => {
+  wakeUpDyno("http://lakihk.herokuapp.com/");
+  console.log(`server start on port ${PORT}`);
+});
