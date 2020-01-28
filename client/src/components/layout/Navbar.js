@@ -8,6 +8,7 @@ import { ReactComponent as Top } from "../../img/top.svg";
 import { loadRooms } from "../../actions/roomsActions";
 import { Link } from "react-router-dom";
 import { useScrollPosition } from "../helper/scrollSpy";
+
 const Navbar = ({
 	isAuthenticated,
 	user,
@@ -83,11 +84,11 @@ const Navbar = ({
 					</label>
 				</div>
 			</nav>
+
 			<button
 				onClick={() => {
 					window.scrollTo({
-						top: 0,
-						behavior: "smooth"
+						top: 0
 					});
 				}}
 				className="btn scroll-to-top"

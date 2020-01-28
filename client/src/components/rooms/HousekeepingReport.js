@@ -10,7 +10,7 @@ const HousekeepingReport = isAuthenticated => {
 		return (
 			<div>
 				<FiltersBar />
-				{/* <Overview /> */}
+				<Overview />
 				<Rooms />
 			</div>
 		);
