@@ -68,11 +68,9 @@ router.post(
 		const errors = validationResult(req);
 		if (!errors.isEmpty()) {
 			return res.status(400).json({ errors: errors.array() });
-		} else {
-			console.log(req.body);
 		}
 		let { name, password } = req.body;
-		name.toLowerCase();
+		name = name.toLowerCase().trim();
 		try {
 			let user = await User.findOne({ name });
 			if (!user) {
