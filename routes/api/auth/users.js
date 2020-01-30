@@ -69,6 +69,7 @@ router.post(
 		if (!errors.isEmpty()) {
 			return res.status(400).json({ errors: errors.array() });
 		}
+
 		let { name, password } = req.body;
 		name = name.toLowerCase().trim();
 		try {
@@ -84,6 +85,7 @@ router.post(
 					.status(400)
 					.json({ errors: [{ msg: "Invalid Credentials" }] });
 			}
+			req.session.user = { name: user.name, user: user.id };
 			const payload = { id: user.id, name: user.name };
 			jwt.sign(payload, secret, { expiresIn: 86600 }, function(err, token) {
 				if (err) throw err;

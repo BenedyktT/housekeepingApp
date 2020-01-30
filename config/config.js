@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 
 const connectDB = async () => {
 	try {
-		await mongoose.connect(
+		const connect = await mongoose.connect(
 			process.env.API_mongoURI,
 			{
 				useNewUrlParser: true,
@@ -13,6 +13,7 @@ const connectDB = async () => {
 			},
 			console.log("connected to db")
 		);
+		return connect;
 	} catch (e) {
 		console.error(e.message);
 		process.exit(1);
