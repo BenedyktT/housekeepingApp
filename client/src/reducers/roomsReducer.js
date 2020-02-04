@@ -128,6 +128,7 @@ export default (state = initialState, action) => {
 					}
 					if (c === vac) {
 						vacancy = "Vacant";
+						roomStatus = cleanStatus;
 					}
 					if (c === occ) {
 						vacancy = "Occupied";
@@ -158,14 +159,20 @@ export default (state = initialState, action) => {
 			return { ...state, roomsReport, loading: false };
 
 		case GET_CLEAN_ROOMS:
-			const newState = state.roomsReport.filter(e => {
-				return payload.map(cleanRooms => {
-					if (cleanRooms.number !== parseInt(e.number)) return null;
-					e.cleanStatus = "Clean";
-					e.cleanedBy = cleanRooms.username;
-					return null;
+			const newState = state.roomsReport
+				.filter(e => {
+					return payload.map(cleanRooms => {
+						if (cleanRooms.number !== parseInt(e.number)) return null;
+						e.cleanStatus = "Clean";
+						e.cleanedBy = cleanRooms.username;
+						return null;
+					});
+				})
+				.sort((a, b) => {
+					if (parseInt(a.number) > parseInt(b.number)) {
+						return 1;
+					} else return -1;
 				});
-			});
 
 			return { ...state, roomsReport: [...newState], loading: false };
 
