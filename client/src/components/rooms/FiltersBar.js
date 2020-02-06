@@ -8,6 +8,7 @@ import {
 	getCurrentCalendarValue
 } from "../../actions/filterAction";
 import { loadRooms } from "../../actions/roomsActions";
+import { SHOW_ALL, SHOW_UNCLEAN } from "../../actions/types";
 import Calendar from "react-calendar";
 import left from "../../img/left.svg";
 import right from "../../img/right.svg";
@@ -78,13 +79,14 @@ const FiltersBar = ({
 				<select
 					defaultValue={filterCleanRoomsMethod}
 					onChange={e => {
-						e.target.value === "SHOW_ALL" ? showAll() : showUnclean();
+						console.log(e.target.value);
+						e.target.value === SHOW_ALL ? showAll() : showUnclean();
 					}}
 					className="sm-text-1"
 					name="filterOptions"
 				>
-					<option value="SHOW_ALL">{t("Show all")}</option>
-					<option value="SHOW_UNCLEAN">{t("Show unclean")}</option>
+					<option value={SHOW_ALL}>{t("Show all")}</option>
+					<option value={SHOW_UNCLEAN}>{t("Show unclean")}</option>
 				</select>
 				<select
 					defaultValue={visibleHallway}

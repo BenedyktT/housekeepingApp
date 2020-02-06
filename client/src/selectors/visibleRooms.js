@@ -1,10 +1,11 @@
+import { SHOW_ALL, SHOW_UNCLEAN } from "../actions/types";
 export default (rooms, { filterCleanRoomsMethod, setVisibleHallway }) => {
 	return rooms
 		.filter(({ cleanStatus }) => {
-			if (filterCleanRoomsMethod === "SHOW_UNCLEAN") {
+			if (filterCleanRoomsMethod === SHOW_UNCLEAN) {
 				return cleanStatus === "Not Clean";
 			}
-			if (filterCleanRoomsMethod === "SHOW_ALL") {
+			if (filterCleanRoomsMethod === SHOW_ALL) {
 				return true;
 			}
 

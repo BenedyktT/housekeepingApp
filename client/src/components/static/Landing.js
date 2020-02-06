@@ -32,6 +32,7 @@ const Landing = ({ loginUser, isAuthenticated, loadUser }) => {
 						className="padding-small  margin-small-x "
 						name="name"
 						type="text"
+						autoComplete="username"
 					/>
 				</div>
 
@@ -42,6 +43,7 @@ const Landing = ({ loginUser, isAuthenticated, loadUser }) => {
 						className="padding-small  margin-small-x "
 						name="password"
 						type="password"
+						autoComplete="password"
 					/>
 				</div>
 
