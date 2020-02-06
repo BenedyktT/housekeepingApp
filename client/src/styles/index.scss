@@ -449,10 +449,16 @@ textarea {
 $break-narrow: 362px;
 $break-small: 500px;
 $break-large: 1024px;
+$break-xsmall: 300px;
 
 @mixin respond-to($media) {
   @if $media == narrow {
     @media only screen and (max-width: $break-narrow) {
+      @content;
+    }
+  }
+  @if $media == xsmall {
+    @media only screen and (max-width: $break-xsmall) {
       @content;
     }
   }

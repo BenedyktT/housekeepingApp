@@ -216,20 +216,45 @@ svg.active {
   justify-content: center;
   align-items: center;
 }
-.set-clean {
-  margin-left: 2rem;
+.action-container{
+
+ display:flex;
+ justify-content: space-evenly;;
+}
+.room__col--left{
+  display:grid;
+  grid-template-areas:
+  "s s"
+  "r r";
+}
+.room-number {
+  grid-area: r;
+}
+.room-action__icon {
+  max-width: 80px;
   margin-bottom: 0.3rem;
+  color:white;
   font-size: 0.8rem;
   display: inline-block;
   box-shadow: 1px 1px 3px darken($blue-primary, 20%);
   border-radius: 5px;
   padding: 0.1rem 0.5rem;
-  min-width: 60px;
+  background:$gradient-blue;
+  min-width: 20px;
+  grid-area: s;
+  /* color:white; */
   cursor: pointer;
   img {
     display: inline-block;
   }
 }
+.room-action__text{
+@include respond-to(xsmall){
+  display:none
+}
+}
+
+
 .room__col--right {
   display: grid;
   grid-template-columns: repeat(4, 25%);

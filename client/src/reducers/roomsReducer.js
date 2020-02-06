@@ -168,6 +168,12 @@ export default (state = initialState, action) => {
 				.filter(e => {
 					return payload.map(cleanRooms => {
 						if (cleanRooms.number !== parseInt(e.number)) return null;
+						if (cleanRooms.isDnd) {
+							e.cleanStatus = "Do not disturb";
+							e.vacancy = "Do not disturb";
+							e.cleanedBy = cleanRooms.username;
+							return null;
+						}
 						e.cleanStatus = "Clean";
 						e.cleanedBy = cleanRooms.username;
 						return null;

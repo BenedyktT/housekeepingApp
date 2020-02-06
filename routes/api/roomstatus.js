@@ -39,10 +39,9 @@ router.get("/", async (req, res) => {
 //set room clean
 ///roomstatus/setclean:101
 
-router.post("/cleanrooms/:number", auth, async (req, res) => {
-	const { number } = req.params;
+router.post("/cleanrooms/:number/isDnd=:isDnd", auth, async (req, res) => {
+	const { number, isDnd } = req.params;
 	const { user } = req;
-
 	try {
 		const today = moment().startOf("day");
 		const isAlreadyCleaned = await Room.findOne({
@@ -62,7 +61,8 @@ router.post("/cleanrooms/:number", auth, async (req, res) => {
 		}
 		const room = new Room({
 			number,
-			user
+			user,
+			isDnd
 		});
 		await room.save();
 		const data = await Room.findById(room.id).populate({

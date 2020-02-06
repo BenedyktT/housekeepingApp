@@ -4,19 +4,13 @@ import { getStatistic } from "../../actions/statisticActions";
 import moment from "moment";
 import { Fragment } from "react";
 
-const Overview = ({
-	getStatistic,
-	calendarDate,
-	rooms,
-	loading,
-	totalRooms
-}) => {
+const Overview = ({ getStatistic, calendarDate, rooms, totalRooms }) => {
 	useEffect(() => {
 		const outOfOrder = rooms.filter(e => e.vacancy === "Out of Order").length;
 		if (calendarDate) {
 			getStatistic(calendarDate, outOfOrder);
 		}
-	}, [calendarDate]);
+	}, []);
 	return (
 		<Fragment>
 			{!moment(calendarDate.n).isSameOrBefore(moment(), "day") && (

@@ -7,7 +7,7 @@ import { Redirect } from "react-router-dom";
 const Register = ({ setAlert, registerUser, history, isRegistered }) => {
 	const [inputValue, setInputValue] = useState({ name: null, password: null });
 	const onSubmit = async e => {
-		const { name, password, email, repeatPassword } = inputValue;
+		const { name, password, repeatPassword } = inputValue;
 		e.preventDefault();
 		if (!name || !password) {
 			setAlert("All fields are required", "danger");

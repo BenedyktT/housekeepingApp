@@ -13,7 +13,7 @@ export default (state = initialState, { type, payload }) => {
 			const totalRooms = payload.reduce((acc, curr) => {
 				if (
 					curr.room !== "OOO" ||
-					(curr.room === "OOO" && curr.occupancy == 0)
+					(curr.room === "OOO" && curr.occupancy === 0)
 				) {
 					return acc + curr.occupancy;
 				} else {

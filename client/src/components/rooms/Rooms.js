@@ -1,13 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { loadRooms, setClean, getCleanRooms } from "../../actions/roomsActions";
+import {
+	loadRooms,
+	setClean,
+	getCleanRooms,
+	setDnd
+} from "../../actions/roomsActions";
 import visibleRooms from "../../selectors/visibleRooms";
 import classnames from "classnames";
 import Loader from "react-loader-spinner";
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import disableScroll from "disable-scroll";
 import moment from "moment";
-import Vacuum from "../../img/vacuum-cleaner.svg";
+import Tick from "../../img/tick.svg";
+import Dnd from "../../img/dnd.svg";
 
 const Rooms = ({
 	rooms,
@@ -16,6 +22,7 @@ const Rooms = ({
 	isNavbarOpen,
 	setClean,
 	language,
+	setDnd,
 	loading,
 	filter
 }) => {
@@ -28,6 +35,8 @@ const Rooms = ({
 		arriving: "Przyjazd",
 		not_clean: "Nieczysty",
 		stayover: "Stayover",
+		do_not_disturb: "Do not disturb",
+		dnd: "DnD",
 		out_of_order: "Zepsuty",
 		departure: "Wyjazd",
 		departure_arriving: "Wyjazd + Przyjazd",
@@ -44,10 +53,11 @@ const Rooms = ({
 		room: "Room",
 		vacant: "vacant",
 		arriving: "Arriving",
-		clean: "clean",
 		not_clean: "Not Clean",
+		dnd: "DnD",
 		stayover: "Stayover",
 		out_of_order: "Out of Order",
+		do_not_disturb: "Do not disturb",
 		departure: "Departure",
 		departure_arriving: "Departure + Arriving",
 		emptymessage: `Everything seems to be cleaned in ${
@@ -69,7 +79,7 @@ const Rooms = ({
 			return en[key];
 		}
 	};
-	const roomAction = (cleanedBy, number, cleanStatus) => {
+	const roomAction = (cleanedBy, number, cleanStatus, vacancy) => {
 		const isSame = moment(setReportDate.n).isSame(moment(), "day");
 		if (cleanedBy) {
 			return (
@@ -84,16 +94,36 @@ const Rooms = ({
 			return null;
 		} else if (cleanStatus === "Clean") {
 			return null;
+		} else if (vacancy === "Stayover") {
+			return (
+				<div className="action-container">
+					<button
+						onClick={() => {
+							setClean(number);
+						}}
+						className=" btn room-action__icon set-clean"
+					>
+						<span className="room-action__text">{t("clean")} </span>
+						<img src={Tick} height="20px" width="20px" alt="setClean" />
+					</button>
+					<button
+						onClick={() => setDnd(number)}
+						className="btn room-action__icon dnd"
+					>
+						<img src={Dnd} height="20px" width="20px" alt="setClean" />
+					</button>
+				</div>
+			);
 		} else {
 			return (
 				<button
 					onClick={() => {
 						setClean(number);
 					}}
-					className="set-clean"
+					className="btn room-action__icon set-clean"
 				>
-					{t("clean")}{" "}
-					<img src={Vacuum} height="20px" width="20px" alt="setClean" />
+					<span className="room-action__text">{t("clean")} </span>
+					<img src={Tick} height="20px" width="20px" alt="setClean" />
 				</button>
 			);
 		}
@@ -134,14 +164,17 @@ const Rooms = ({
 								vacancy === "Not Clean" ||
 								vacancy == null
 						},
-						{ "gradient-pink": vacancy === "Occupied" },
+						{
+							"gradient-pink":
+								vacancy === "Occupied" || vacancy === "Do not disturb"
+						},
 						{ "gradient-green": vacancy === "Stayover" },
 						{ "gradient-dark": vacancy === "Out of Order" }
 					)}
 				>
 					<div className="room__col--left">
-						{roomAction(cleanedBy, number, cleanStatus)}
-						<h4 className="bold">
+						{roomAction(cleanedBy, number, cleanStatus, vacancy)}
+						<h4 className="room-number bold">
 							{t("room")} {number}
 						</h4>
 					</div>
@@ -195,5 +228,5 @@ export default connect(
 		loading: state.roomReducer.loading,
 		filter: state.filterReducer
 	}),
-	{ loadRooms, setClean, getCleanRooms }
+	{ loadRooms, setClean, getCleanRooms, setDnd }
 )(Rooms);

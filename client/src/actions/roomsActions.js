@@ -58,10 +58,25 @@ export const loadRooms = date => async dispatch => {
 
 export const setClean = number => async dispatch => {
 	try {
-		await axios.post(`roomstatus/cleanrooms/${number}`);
+		await axios.post(`roomstatus/cleanrooms/${number}/isDnd=false`);
 
 		dispatch(getCleanRooms());
 		dispatch(setAlert(`Room ${number} is cleaned`, "success"));
+	} catch (error) {
+		const errors = error.response.data.errors;
+		if (errors && errors.length) {
+			errors.forEach(e => dispatch(setAlert(e.msg, "danger")));
+		}
+	}
+};
+
+//set dnd
+export const setDnd = number => async dispatch => {
+	try {
+		await axios.post(`roomstatus/cleanrooms/${number}/isDnd=true`);
+
+		dispatch(getCleanRooms());
+		dispatch(setAlert(`Room ${number} has do not disturb`, "success"));
 	} catch (error) {
 		const errors = error.response.data.errors;
 		if (errors && errors.length) {
@@ -79,10 +94,11 @@ export const getCleanRooms = (
 
 		dispatch({
 			type: GET_CLEAN_ROOMS,
-			payload: response.data.map(({ createdAt, user, number }) => ({
+			payload: response.data.map(({ createdAt, user, number, isDnd }) => ({
 				createdAt,
 				username: user.name,
-				number
+				number,
+				isDnd
 			}))
 		});
 	} catch (error) {
