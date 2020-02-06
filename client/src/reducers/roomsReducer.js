@@ -1,4 +1,9 @@
-import { GET_ROOM_SETUP, GET_CLEAN_ROOMS, LOAD_ROOMS } from "../actions/types";
+import {
+	GET_ROOM_SETUP,
+	GET_CLEAN_ROOMS,
+	LOAD_ROOMS,
+	DESTROY_REPORT
+} from "../actions/types";
 
 const initialState = {
 	roomsReport: [],
@@ -175,7 +180,11 @@ export default (state = initialState, action) => {
 				});
 
 			return { ...state, roomsReport: [...newState], loading: false };
-
+		case DESTROY_REPORT:
+			return {
+				roomsReport: [],
+				loading: true
+			};
 		default:
 			return state;
 	}

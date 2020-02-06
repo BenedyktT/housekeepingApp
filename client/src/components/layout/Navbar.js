@@ -5,7 +5,7 @@ import classnames from "classnames";
 import { toggleNavbar } from "../../actions/layoutAction";
 import { ReactComponent as Reload } from "../../img/reload.svg";
 import { ReactComponent as Top } from "../../img/top.svg";
-import { loadRooms } from "../../actions/roomsActions";
+import { loadRooms, destroyReport } from "../../actions/roomsActions";
 import { Link } from "react-router-dom";
 import { useScrollPosition } from "../helper/scrollSpy";
 
@@ -16,7 +16,8 @@ const Navbar = ({
 	isNavbarOpen,
 	loadRooms,
 	getReportDate,
-	loading
+	loading,
+	destroyReport
 }) => {
 	const [hideOnScroll, setHideOnScroll] = useState(true);
 	useScrollPosition(
@@ -61,6 +62,7 @@ const Navbar = ({
 						className="btn reload"
 						onClick={() => {
 							setBtnClicked(!isBtnClicked);
+							destroyReport();
 							loadRooms(getReportDate);
 						}}
 					>
@@ -107,5 +109,5 @@ export default connect(
 		getReportDate: state.filterReducer.getCurrentCalendarValue,
 		loading: state.roomReducer.loading
 	}),
-	{ toggleNavbar, loadRooms }
+	{ toggleNavbar, loadRooms, destroyReport }
 )(Navbar);
