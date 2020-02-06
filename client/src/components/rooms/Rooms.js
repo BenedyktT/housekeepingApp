@@ -15,7 +15,9 @@ const Rooms = ({
 	setReportDate,
 	isNavbarOpen,
 	setClean,
-	language
+	language,
+	loading,
+	filter
 }) => {
 	const pl = {
 		ready: "Zrobione",
@@ -28,7 +30,12 @@ const Rooms = ({
 		stayover: "Stayover",
 		out_of_order: "Zepsuty",
 		departure: "Wyjazd",
-		departure_arriving: "Wyjazd + Przyjazd"
+		departure_arriving: "Wyjazd + Przyjazd",
+		emptymessage: `Pokoje sa posprzatane ${
+			filter.setVisibleHallway === "all"
+				? "we wszystkich korytarzach"
+				: `w korytarzu ${filter.setVisibleHallway}`
+		}. Sprobuj ustwacic "pokaz wszystkie" w filtrach`
 	};
 	const en = {
 		ready: "Ready",
@@ -42,13 +49,19 @@ const Rooms = ({
 		stayover: "Stayover",
 		out_of_order: "Out of Order",
 		departure: "Departure",
-		departure_arriving: "Departure + Arriving"
+		departure_arriving: "Departure + Arriving",
+		emptymessage: `Everything seems to be cleaned in ${
+			filter.setVisibleHallway
+		}  hallway${
+			filter.setVisibleHallway === "all" ? "s" : ""
+		}. Try to modify the filters`
 	};
 	const t = text => {
 		let key;
 		if (text) {
 			key = text.replace(/ |\+/g, "_").toLowerCase();
 		}
+
 		if (language === "pl") {
 			return pl[key];
 		}
@@ -152,18 +165,21 @@ const Rooms = ({
 
 	return (
 		<div className="container">
-			{rooms.length ? (
-				render()
-			) : (
+			{!rooms.length && loading ? (
 				<div className="loader-container">
 					<Loader
-						type="CradleLoader"
-						color="#00BFFF"
+						type="Oval"
+						color="#b41c8b"
 						height={50}
 						width={50}
-						timeout={4000} //3 secs
+						timeout={0} //3 secs
 					/>
 				</div>
+			) : (
+				render()
+			)}
+			{!loading && !rooms.length && (
+				<div className="center container">{t("emptyMessage")}</div>
 			)}
 		</div>
 	);
@@ -175,7 +191,9 @@ export default connect(
 		cleanRooms: state.roomReducer.cleanRooms,
 		setReportDate: state.filterReducer.getCurrentCalendarValue,
 		isNavbarOpen: state.layoutReducer.isNavbarOpen,
-		language: state.settingsReducer.language
+		language: state.settingsReducer.language,
+		loading: state.roomReducer.loading,
+		filter: state.filterReducer
 	}),
 	{ loadRooms, setClean, getCleanRooms }
 )(Rooms);

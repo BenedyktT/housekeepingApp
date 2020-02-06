@@ -171,9 +171,13 @@ h4 {
 
 //loader
 .loader-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  position:fixed;
+  left: 0px;
+  top: 50%;
+  width: 100%;
+  text-align: center;;
+  height: 100%;
+  z-index:9999
 }
 
 //border
