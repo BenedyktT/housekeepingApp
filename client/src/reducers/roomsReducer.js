@@ -51,6 +51,7 @@ export default (state = initialState, action) => {
 					...nextRoomsArr.filter(el => el.Room === Room)
 				);
 			});
+
 			const noshow = "NO_SHOW";
 			const vac = "VACANT";
 			const occ = "OCCUPIED";
@@ -137,6 +138,7 @@ export default (state = initialState, action) => {
 					}
 					if (c === occ) {
 						vacancy = "Occupied";
+						roomStatus = cleanStatus;
 					}
 
 					return {
