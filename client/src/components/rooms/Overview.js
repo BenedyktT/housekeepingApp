@@ -41,11 +41,20 @@ const Overview = ({ getStatistic, calendarDate, rooms, totalRooms }) => {
 			);
 			const { toClean, stayovers, isNotCheckedout } = roomsToClean;
 			return (
-				<div className="overview container">
-					<span>To Clean: {toClean}</span>
-					<span>Stayovers: {stayovers}</span>
-					<span>Has not left: {isNotCheckedout}</span>
-				</div>
+				rooms.length > 0 && (
+					<div className="overview container">
+						<span>
+							<small>To Clean:</small> <i className="bold">{toClean}</i>
+						</span>
+						<span>
+							<small>Stayovers:</small> <i className="bold">{stayovers}</i>
+						</span>
+						<span>
+							<small>Has not left:</small>{" "}
+							<i className="bold">{isNotCheckedout}</i>
+						</span>
+					</div>
+				)
 			);
 		}
 		if (day.isBefore(moment(), "day")) {
