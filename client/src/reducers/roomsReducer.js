@@ -140,6 +140,10 @@ export default (state = initialState, action) => {
 						vacancy = "Occupied";
 						roomStatus = cleanStatus;
 					}
+					if (c === arr && n === occ) {
+						vacancy = "Occupied";
+						roomStatus = cleanStatus;
+					}
 
 					return {
 						number,
