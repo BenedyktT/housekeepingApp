@@ -19,7 +19,7 @@ export default (state = initialState, action) => {
 			const { cleanStatus, roomNote } = payload;
 			const { currentRooms, nextRooms } = payload.roomStatus;
 			//merge object from two requests (same key)
-
+			console.log(payload);
 			const currentRoomSetup = currentRooms
 				.filter((e, index, array) => {
 					const prevItem = array[index - 1];

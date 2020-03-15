@@ -143,6 +143,7 @@ const Rooms = ({
 
 	const render = () => {
 		return rooms.map(room => {
+			console.log(room);
 			const {
 				number,
 				cleanStatus,
