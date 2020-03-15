@@ -18,6 +18,7 @@ export default (state = initialState, action) => {
 		case GET_ROOM_SETUP:
 			const { cleanStatus, roomNote } = payload;
 			const { currentRooms, nextRooms } = payload.roomStatus;
+
 			//merge object from two requests (same key)
 
 			const currentRoomSetup = currentRooms
@@ -79,7 +80,12 @@ export default (state = initialState, action) => {
 							c === na ||
 							c === block ||
 							c === noshow) &&
-						(n === narr || n === avail || n === na || n === co || n === block)
+						(n === narr ||
+							n === avail ||
+							n === na ||
+							n === co ||
+							n === block ||
+							n === vac)
 					) {
 						vacancy = cleanStatus;
 						roomStatus = cleanStatus;
