@@ -143,7 +143,6 @@ const Rooms = ({
 
 	const render = () => {
 		return rooms.map(room => {
-			console.log(room);
 			const {
 				number,
 				cleanStatus,
@@ -159,16 +158,17 @@ const Rooms = ({
 					className={classnames(
 						"room",
 						{
+							"gradient-pink":
+								vacancy === "Occupied" || vacancy === "Do not disturb"
+						},
+						{
 							"gradient-blue":
 								vacancy === "Vacant" ||
 								vacancy === "Clean" ||
 								vacancy === "Not Clean" ||
 								vacancy == null
 						},
-						{
-							"gradient-pink":
-								vacancy === "Occupied" || vacancy === "Do not disturb"
-						},
+
 						{ "gradient-green": vacancy === "Stayover" },
 						{ "gradient-dark": vacancy === "Out of Order" }
 					)}

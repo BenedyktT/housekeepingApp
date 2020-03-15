@@ -4,7 +4,7 @@ import { setLanguage } from "../../actions/settingsAction";
 
 const Settings = ({ language, setLanguage }) => {
 	const [checkedValue, setCheckedValue] = useState(language);
-	console.log(language);
+
 	return (
 		<div className="container border ">
 			<div className="border container">

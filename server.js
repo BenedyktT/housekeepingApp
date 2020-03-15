@@ -66,6 +66,12 @@ app.listen(PORT, () => {
 		startNap: [19, 0, 0, 0], // the time to start nap in UTC, as [h, m, s, ms] (05:00 UTC in this example)
 		endNap: [06, 59, 59, 999] // time to wake up again, in UTC (09:59:59.999 in this example)
 	}).start();
+	wakeUpDyno({
+		url: "http://blooming-tundra-68800.herokuapp.com/", // url string
+		interval: 60000 * 25,
+		startNap: [21, 30, 21, 12], // the time to start nap in UTC, as [h, m, s, ms] (05:00 UTC in this example)
+		endNap: [07, 11, 59, 999] // interval in milliseconds (1 minute in this example)
+	}).start();
 
 	console.log(`server start on port ${PORT}`);
 });
