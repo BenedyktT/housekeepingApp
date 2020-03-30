@@ -7,11 +7,10 @@ live project is available here:
 Because application is dedicated only for hotel employers, user cannot register himself
 
 #### Application overview
-1.Application purpose is to get list of rooms from reservation system API and generate report.
-![Application purpose is to get list of rooms from reservation system API and generate report.](/screenshots/screen1.png)
-
+1.Application purpose is to get list of rooms from reservation system API and generate report. <div style="width:150px">![Application purpose is to get list of rooms from reservation system API and generate report.](/screenshots/screen1.png)</div>
 1.It keeps record of user who cleaned room - it has two advantages: It let know reception know when room is cleaned and ready to use, and also it keeps track of history of cleaned rooms - so it is major plus for quality assurance
-![It keeps record of user who cleaned room](/screenshots/screen3.png)
+<div style="width:150px">![It keeps record of user who cleaned room](/screenshots/screen3.png)</div>
+1.Calendar helps user to see how many rooms to be cleaned in given day and keep track of who cleaned which room in the past !<div style="width:150px">[screen3](/screenshots/screen2.png)</div>
 
 
 
