@@ -12,7 +12,7 @@ connectDB();
 app.use(cookieParser());
 app.use(
 	session({
-		secret: "fwfeqr145a",
+		secret: "test",
 		resave: false,
 		saveUninitialized: true,
 		store: new MongoStore({
@@ -52,9 +52,10 @@ app.get("/foo", function(req, res, next) {
 if (process.env.NODE_ENV === "production") {
 	// Set static folder
 	app.use(express.static("client/build"));
-	app.get("/*", function(req, res) {
+	app.get(["/","/*"], function(req, res) {
 		res.sendFile(path.join(__dirname, "build", "index.html"));
 	});
+	
 }
 
 const PORT = process.env.PORT || 5000;
