@@ -22,13 +22,13 @@ router.get("/:arrival/:departure", async (req, res) => {
 					room: child.attr.availabilityBaseCode,
 					available: child.children[1].children[0].attr.availability,
 					occupancy:
-						(child.attr.availabilityBaseCode === "DBL-S" &&
+						(child.attr.availabilityBaseCode.includes("DBL") &&
 							39 - child.children[1].children[0].attr.availability) ||
-						(child.attr.availabilityBaseCode === "ECO-S" &&
+						(child.attr.availabilityBaseCode.includes("ECO") &&
 							24 - child.children[1].children[0].attr.availability) ||
-						(child.attr.availabilityBaseCode === "SUP-S" &&
+						(child.attr.availabilityBaseCode.includes("SUP") &&
 							1 - child.children[1].children[0].attr.availability) ||
-						(child.attr.availabilityBaseCode === "BUN-S" &&
+						(child.attr.availabilityBaseCode.includes("BUN") &&
 							15 - child.children[1].children[0].attr.availability)
 				};
 			})
